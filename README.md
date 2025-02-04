@@ -1,6 +1,6 @@
 # Baconfy UI
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/baconfy/ui/testing.yml?branch=main&style=plastic)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/baconfy/ui/testing.yml?branch=main)
 
 ## Description
 
