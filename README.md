@@ -1,4 +1,8 @@
-# Laravel Package with Inertia, React, and Tailwind
+# Baconfy UI
+
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/baconfy/ui/testing.yml?branch=main&style=plastic)
+[![Total Downloads](http://poser.pugx.org/baconfy/ui/downloads)](https://packagist.org/packages/baconfy/ui&style=plastic)
+[![License](http://poser.pugx.org/baconfy/ui/license)](https://packagist.org/packages/baconfy/ui&style=plastic)
 
 This package provides a streamlined setup for building Laravel applications with Inertia.js, React, and Tailwind CSS. It
 simplifies the integration of these modern tools, enabling developers to focus on building scalable and responsive web
