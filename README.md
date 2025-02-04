@@ -1,8 +1,6 @@
 # Baconfy UI
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/baconfy/ui/testing.yml?branch=main&style=plastic)
-[![Total Downloads](http://poser.pugx.org/baconfy/ui/downloads)](https://packagist.org/packages/baconfy/ui&style=plastic)
-[![License](http://poser.pugx.org/baconfy/ui/license)](https://packagist.org/packages/baconfy/ui&style=plastic)
 
 ## Description
 
