@@ -24,6 +24,13 @@
     "pestphp/pest-plugin-type-coverage": "^3.2.3",
     "rector/rector": "^2.0.7"
   },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Baconfy\\Ui\\UiServiceProvider"
+      ]
+    }
+  },
   "autoload": {
     "psr-4": {
       "Baconfy\\Ui\\": "src/"
