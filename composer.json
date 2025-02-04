@@ -1,0 +1,75 @@
+{
+  "name": "baconfy/ui",
+  "authors": [
+    {
+      "name": "Renato Dehnhardt",
+      "email": "renatotkd@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "inertiajs/inertia-laravel": "^2.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^9.9",
+    "pestphp/pest": "^3.7",
+    "fakerphp/faker": "^1.24.1",
+    "larastan/larastan": "^3.0.2",
+    "laravel/pail": "^1.2.1",
+    "laravel/pint": "^1.20",
+    "mockery/mockery": "^1.6.12",
+    "nunomaduro/collision": "^8.5",
+    "peckphp/peck": "^0.1.1",
+    "pestphp/pest-plugin-laravel": "^3.0",
+    "pestphp/pest-plugin-stressless": "^3.1",
+    "pestphp/pest-plugin-type-coverage": "^3.2.3",
+    "rector/rector": "^2.0.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Baconfy\\Ui\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "App\\": "workbench/app/",
+      "Package\\Tests\\": "tests/",
+      "Database\\Factories\\": "workbench/database/factories/",
+      "Database\\Seeders\\": "workbench/database/seeders/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "@clear",
+      "@prepare"
+    ],
+    "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+    "prepare": "@php vendor/bin/testbench package:discover --ansi",
+    "build": "@php vendor/bin/testbench workbench:build --ansi",
+    "dev": [
+      "Composer\\Config::disableProcessTimeout",
+      "@build",
+      "npx concurrently -c \"#93c5fd,#fdba74\" \"./vendor/bin/testbench serve --ansi\" \"npm run dev\" --names=serve,vite"
+    ],
+    "lint": "@php vendor/bin/pint",
+    "refactor": "@php vendor/bin/rector",
+    "test:type-coverage": "pest --type-coverage --min=100",
+    "test:typos": "@php vendor/bin/peck",
+    "test:lint": "@php vendor/bin/pint --test",
+    "test:unit": "pest --parallel --coverage --exactly=100",
+    "test:types": "@php vendor/bin/phpstan",
+    "test:refactor": "@php vendor/bin/rector --dry-run",
+    "test": [
+      "@test:type-coverage",
+      "@test:unit",
+      "@test:lint",
+      "@test:types",
+      "@test:refactor"
+    ]
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
