@@ -10,7 +10,3 @@ it('registers the service provider', function () {
 
     expect($provider)->toBeInstanceOf(ServiceProvider::class);
 })->group('service-provider');
-
-// it('loads the configuration file', function () {
-//    expect(config('ui.chave'))->toBe('valor_padrao');
-// })->group('configuration')->withServiceProviders([UiServiceProvider::class]);
