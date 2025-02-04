@@ -6,6 +6,5 @@ parameters:
 
     paths:
         - src/
-        - database/
 
     level: max
