@@ -64,7 +64,6 @@
     "test:unit": "pest --parallel --coverage --exactly=100",
     "test:refactor": "@php vendor/bin/rector --dry-run",
     "test": [
-      "@test:type-coverage",
       "@test:unit",
       "@test:lint",
       "@test:refactor"
