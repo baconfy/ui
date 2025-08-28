@@ -31,7 +31,7 @@ function AlertDialogContent({className, ...props}: React.ComponentProps<typeof A
     <AlertDialogPortal>
       <AlertDialogOverlay/>
       <AlertDialogPrimitive.Content data-slot="alert-dialog-content" className={cn(
-        "fixed rounded border border-white/35 p-2 z-50 duration-200 backdrop-brightness-150 shadow-lg sm:max-w-lg top-[50%] left-[50%] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%]",
+        "fixed rounded border border-white/35 p-2 z-50 duration-200 backdrop-brightness-125 shadow-xl sm:max-w-lg top-[50%] left-[50%] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%]",
         className
       )} {...props}>
         <div className={cn("grid rounded border border-black/35 shadow-xs bg-background text-foreground p-4 gap-8")}>
