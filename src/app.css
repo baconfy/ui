@@ -1,0 +1,107 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-sans: 'Nunito Sans', sans-serif;
+
+    --brand-color: hsl(204, 48%, 56%);
+
+    --radius: var(--radius);
+
+    --color-ring: var(--ring);
+    --color-border: var(--border);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-button: var(--button);
+    --color-button-foreground: var(--button-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+}
+
+:root {
+    --radius: 0.3rem;
+
+    --ring: hsl(0, 0%, 0%);
+    --border: hsl(0, 0%, 0%);
+
+    --background: hsl(0, 0%, 100%);
+    --foreground: hsl(0, 0%, 0%);
+
+    --muted: hsl(from var(--background) h s calc(l - 5));
+    --muted-foreground: hsl(from var(--foreground) h s calc(l + 42));
+
+    --accent: hsl(from var(--primary) h s calc(l + 35));
+    --accent-foreground: hsl(from var(--primary) h s calc(l - 30));
+
+    --button: hsl(205, 25%, 30%);
+    --button-foreground: hsl(from var(--button) h s calc(l + 60));
+
+    --primary: var(--brand-color);
+    --primary-foreground: hsl(from var(--brand-color) h s calc(l + 40));
+
+    --secondary: hsl(24, 69%, 75%);
+    --secondary-foreground: hsl(from var(--secondary) h s calc(l - 60));
+
+    --destructive: hsl(0, 87%, 45%);
+    --destructive-foreground: hsl(0, 0%, 100%);
+}
+
+.dark {
+    --ring: oklch(0.145 0 0);
+    --border: oklch(0.145 0 0);
+
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+
+    --accent: oklch(1 0 0);
+    --accent-foreground: oklch(0.145 0 0);
+
+    --button: oklch(0.205 0 0);
+    --button-foreground: oklch(0.985 0 0);
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+    body {
+        @apply antialiased bg-background text-foreground;
+    }
+}
+
+@utility clickable {
+    @apply hover:cursor-pointer focus:ring-0 focus:outline-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none;
+}
+
+@utility no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* 1 - 204, 21%, 70% */
+/* 2 - 204, 56%, 59% */
+/* 3 - 204, 48%, 56% */
+/* 4 - 24, 69%, 75% */
+/* 5 - 204, 67%, 42% */
