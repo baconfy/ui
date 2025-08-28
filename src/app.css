@@ -89,7 +89,7 @@
     }
 
     body {
-        @apply antialiased bg-background text-foreground;
+        @apply antialiased bg-background text-foreground no-scrollbar;
     }
 }
 
