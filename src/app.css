@@ -31,6 +31,9 @@
     --color-button: var(--button);
     --color-button-foreground: var(--button-foreground);
 
+    --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
+
     --color-destructive: var(--destructive);
     --color-destructive-foreground: var(--destructive-foreground);
 }
@@ -61,6 +64,9 @@
 
     --destructive: hsl(0, 87%, 45%);
     --destructive-foreground: hsl(0, 0%, 100%);
+
+    --success: hsl(101, 51%, 85%);
+    --success-foreground: hsl(from var(--success) h s calc(l - 60));
 }
 
 .dark {
