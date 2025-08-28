@@ -1,7 +1,7 @@
 import {CheckCheck} from "lucide-react";
 
 import {Section, SectionContent, SectionTitle} from "../components/section";
-import {Alert, AlertDescription, AlertTitle, alertVariants} from "@/components/ui/alert";
+import {Alert, AlertDescription, AlertTitle, alertVariants} from "@/index";
 
 export default function AlertPage() {
   const variants = ['default', 'success', 'primary', 'secondary', 'destructive', 'outline', 'ghost'];

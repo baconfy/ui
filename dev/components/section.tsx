@@ -10,7 +10,7 @@ export const SectionTitle = ({children, ...props}: ComponentProps<'h1'>) => (
 )
 
 export const SectionContent = ({children, ...props}: ComponentProps<'div'>) => (
-  <div className={cn('flex border bg-accent text-muted-foreground border-border/25 item-center justify-center rounded p-16 gap-4', props.className)} {...props}>
+  <div className={cn('flex border bg-accent/25 text-accent-foreground border-border/25 item-center justify-center rounded p-16 gap-4', props.className)} {...props}>
     {children}
   </div>
 )

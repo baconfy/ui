@@ -4,6 +4,7 @@ export default function HomePage() {
   const components = [
     {name: 'Accordion', path: '/accordion', description: 'Accordion com várias variantes e tamanhos'},
     {name: 'Alert', path: '/alert', description: 'Alert com várias variantes e tamanhos'},
+    {name: 'Alert Dialog', path: '/alert-dialog', description: 'Alert dialog com várias variantes e tamanhos'},
     {name: 'Button', path: '/button', description: 'Botões com várias variantes e tamanhos'},
     {name: 'Modal', path: '/modal', description: 'Modais e dialogs (em breve)'},
     {name: 'Input', path: '/input', description: 'Campos de entrada (em breve)'},

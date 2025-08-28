@@ -17,8 +17,8 @@ const buttonVariants = cva(
         link: "text-primary border-2 border-transparent underline-offset-4 hover:text-primary/80 hover:underline",
       },
       size: {
-        default: "font-bold h-12 px-8 has-[>svg]:px-6 pb-0.5 md:h-14 md:px-10 has-[>svg]:md:px-8 text-lg tracking-tighter",
-        small: "font-bold h-8 px-4 has-[>svg]:px-2 pb-0.5 md:h-10 md:px-6 has-[>svg]:md:px-5 tracking-tight",
+        default: "font-bold h-12 px-8 has-[>svg]:px-6 md:h-14 md:px-10 has-[>svg]:md:px-8 text-lg tracking-tighter",
+        small: "font-bold h-8 px-4 has-[>svg]:px-2 md:h-10 md:px-6 has-[>svg]:md:px-5 tracking-tight",
         none: "font-bold p-0 pb-0.5",
       },
     },
