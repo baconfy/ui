@@ -20,6 +20,7 @@ const buttonVariants = cva(
         default: "font-bold h-12 px-8 has-[>svg]:px-6 md:h-14 md:px-10 has-[>svg]:md:px-8 text-lg tracking-tighter",
         small: "font-bold h-8 px-4 has-[>svg]:px-2 md:h-10 md:px-6 has-[>svg]:md:px-5 tracking-tight",
         none: "font-bold p-0 pb-0.5",
+        icon: "size-10",
       },
     },
     defaultVariants: {

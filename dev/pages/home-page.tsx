@@ -1,4 +1,4 @@
-import {Brand} from "../components/layout";
+import {Brand} from "../components/brand";
 
 export default function HomePage() {
   return (
