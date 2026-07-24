@@ -28,12 +28,13 @@
     "devDependencies": []
   },
   "remove": [
-    "resources/js/components",
-    "resources/js/layouts",
-    "resources/js/pages",
-    "resources/js/hooks/use-mobile.tsx",
     "components.json",
     "routes/web.php",
+    "routes/settings.php",
+    "resources/js/pages",
+    "resources/js/layouts",
+    "resources/js/components",
+    "resources/js/hooks/use-mobile.tsx",
     "pnpm-workspace.yaml"
   ],
   "source": "files"
