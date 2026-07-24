@@ -19,7 +19,7 @@ export function AppHeader({ breadcrumbs = [], actions }: AppHeaderProps) {
 
             {breadcrumbs.length > 0 && (
                 <>
-                    <Separator orientation="vertical" className="mr-2 h-4 data-vertical:self-center" />
+                    <Separator orientation="vertical" className="mr-1.5 h-4 data-vertical:self-center" />
                     <Breadcrumb>
                         <BreadcrumbList>
                             {breadcrumbs.map((item, index) => {

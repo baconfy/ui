@@ -1,4 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { dashboard } from '@/routes';
 
 export default function WelcomePage() {
@@ -6,9 +8,11 @@ export default function WelcomePage() {
         <>
             <Head title="Welcome" />
 
-            <div className="flex min-h-screen flex-col items-center justify-center bg-background text-foreground">
-                <h1 className="text-4xl font-bold">Welcome</h1>
-                <Link href={dashboard()}>Dashboard</Link>
+            <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 text-foreground">
+                <h1 className="font-heading text-4xl font-semibold tracking-tight text-balance sm:text-5xl">Welcome</h1>
+                <Link href={dashboard()} className={cn(buttonVariants())}>
+                    Dashboard
+                </Link>
             </div>
         </>
     );
