@@ -1,9 +1,10 @@
 {
   "name": "baconfy/ui",
   "shadcn": {
-    "preset": "vega",
-    "base": "base",
-    "components": "all"
+    "preset": "b0",
+    "components": "all",
+    "template": "laravel",
+    "pointer": true
   },
   "composer": {
     "require": [
