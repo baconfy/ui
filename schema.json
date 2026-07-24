@@ -8,9 +8,17 @@
   },
   "composer": {
     "require": [
-      "laravel/reverb"
+      "laravel/ai",
+      "laravel/reverb",
+      "laravel/horizon",
+      "baconfy/prompt",
+      "intervention/image",
+      "promptphp/intercept",
+      "nunomaduro/essentials"
     ],
-    "require-dev": []
+    "require-dev": [
+      "baconfy/factory-payload"
+    ]
   },
   "npm": {
     "dependencies": [
