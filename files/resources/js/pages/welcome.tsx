@@ -5,7 +5,7 @@ export default function Welcome() {
     <>
       <Head title="Welcome"/>
 
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
         <h1 className="text-4xl font-bold">Welcome</h1>
       </div>
     </>
