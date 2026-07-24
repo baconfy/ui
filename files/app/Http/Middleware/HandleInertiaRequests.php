@@ -43,7 +43,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'layout' => [
-                'variant' => $request->user()?->sidebar_variant ?? 'inset',
+                'variant' => $request->user()?->sidebar_variant ?? 'floating',
                 'collapsible' => $request->user()?->sidebar_collapsible ?? 'icon',
                 'side' => $request->user()?->sidebar_side ?? 'left',
             ],
