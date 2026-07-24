@@ -24,9 +24,7 @@ void createInertiaApp({
       </TooltipProvider>
     );
   },
-  progress: {
-    color: '#4babfb',
-  },
+  progress:
 });
 
 initializeTheme();
