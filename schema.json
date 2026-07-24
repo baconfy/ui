@@ -1,7 +1,7 @@
 {
   "name": "baconfy/ui",
   "shadcn": {
-    "preset": "b0",
+    "preset": "vega",
     "components": "all",
     "template": "laravel",
     "pointer": true
