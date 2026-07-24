@@ -1,5 +1,6 @@
-import { Fragment, type ReactNode } from 'react';
 import { Link } from '@inertiajs/react';
+import { Fragment  } from 'react';
+import type {ReactNode} from 'react';
 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
@@ -18,7 +19,7 @@ export function AppHeader({ breadcrumbs = [], actions }: AppHeaderProps) {
 
       {breadcrumbs.length > 0 && (
         <>
-          <Separator orientation="vertical" className="mr-2 h-4" />
+          <Separator orientation="vertical" className="mr-2 h-4 data-vertical:self-center" />
           <Breadcrumb>
             <BreadcrumbList>
               {breadcrumbs.map((item, index) => {
