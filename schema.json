@@ -12,9 +12,6 @@
     "resources/js/hooks/use-mobile.tsx",
     "components.json",
     "routes/web.php",
-    "../ourtory/ui/resources/js/components",
-    "routes/web.php",
-    "/etc/hosts",
     "pnpm-workspace.yaml"
   ],
   "source": "files"
