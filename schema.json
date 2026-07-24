@@ -1,0 +1,17 @@
+{
+  "name": "baconfy/ui",
+  "shadcn": {
+    "preset": "vega",
+    "base": "base",
+    "components": "all"
+  },
+  "remove": [
+    "resources/js/components",
+    "resources/js/layouts",
+    "resources/js/pages",
+    "resources/js/hooks/use-mobile.tsx",
+    "components.json",
+    "pnpm-workspace.yaml"
+  ],
+  "source": "files"
+}
