@@ -5,6 +5,19 @@
     "base": "base",
     "components": "all"
   },
+  "composer": {
+    "require": [
+      "laravel/reverb"
+    ],
+    "require-dev": []
+  },
+  "npm": {
+    "dependencies": [
+      "laravel-echo",
+      "pusher-js"
+    ],
+    "devDependencies": []
+  },
   "remove": [
     "resources/js/components",
     "resources/js/layouts",
