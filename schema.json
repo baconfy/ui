@@ -12,6 +12,8 @@
     "resources/js/hooks/use-mobile.tsx",
     "components.json",
     "routes/web.php",
+    "../outro-projeto",
+    "/etc/hosts",
     "pnpm-workspace.yaml"
   ],
   "source": "files"
