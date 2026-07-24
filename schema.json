@@ -27,6 +27,9 @@
     ],
     "devDependencies": []
   },
+  "artisan": [
+    "wayfinder:generate --with-form"
+  ],
   "remove": [
     "components.json",
     "pnpm-workspace.yaml",
