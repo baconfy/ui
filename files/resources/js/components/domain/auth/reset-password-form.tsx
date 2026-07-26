@@ -15,7 +15,7 @@ function ResetPasswordForm({ token, email, passwordRules }: { token: string; ema
                             <FieldGroup>
                                 <Field>
                                     <FieldLabel>Email address</FieldLabel>
-                                    <Input id="email" type="email" name="email" autoComplete="email" value={email} readOnly disabled />
+                                    <Input id="email" type="email" name="email" autoComplete="email" value={email} readOnly />
                                     <FieldError children={errors.email} />
                                 </Field>
                                 <Field>
