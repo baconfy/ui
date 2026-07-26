@@ -19,7 +19,7 @@ void createInertiaApp({
   },
   withApp(app, { ssr, page }) {
     return (
-      <TooltipProvider delayDuration={0}>
+      <TooltipProvider delay={0}>
         {app}
       </TooltipProvider>
     );
