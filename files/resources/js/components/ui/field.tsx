@@ -5,7 +5,6 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
 
 type FieldContextValue = {
   id: string
@@ -156,19 +155,21 @@ function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
 function FieldSeparator({ children, className, ...props }: React.ComponentProps<"div"> & { children?: React.ReactNode }) {
   return (
     <div
+      role="separator"
+      aria-orientation="horizontal"
+      aria-label={typeof children === "string" ? children : undefined}
       data-slot="field-separator"
       data-content={!!children}
-      className={cn(
-        "relative -my-2 h-6 text-sm group-data-[variant=outline]/field-group:-mb-2",
-        className
-      )}
+      className={cn("flex items-center gap-4 text-xs font-bold tracking-tight text-muted-foreground uppercase", className)}
       {...props}
     >
-      <Separator className="absolute inset-0 top-1/2" />
+      <div className="h-px flex-1 bg-border" />
+
       {children && (
-        <span className="relative mx-auto block w-fit bg-background px-2 text-muted-foreground" data-slot="field-separator-content">
-          {children}
-        </span>
+        <>
+          <span data-slot="field-separator-content">{children}</span>
+          <div className="h-px flex-1 bg-border" />
+        </>
       )}
     </div>
   )

@@ -1,5 +1,4 @@
 import { Head, setLayoutProps } from '@inertiajs/react';
-import type { ReactNode } from 'react';
 import { useMemo, useState } from 'react';
 
 import AuthLayout from '@/layouts/auth-layout';
@@ -39,4 +38,4 @@ export default function TwoFactorChallengePage() {
     );
 }
 
-TwoFactorChallengePage.layout = (page: ReactNode) => <AuthLayout children={page} />;
+TwoFactorChallengePage.layout = [AuthLayout, { title: 'Two-factor Authentication', description: 'Please confirm access to your account by entering the authentication code provided by your authenticator application.' }];

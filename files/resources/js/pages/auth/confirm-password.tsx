@@ -1,5 +1,4 @@
 import { Head } from '@inertiajs/react';
-import type { ReactNode } from 'react';
 
 import AuthLayout from '@/layouts/auth-layout';
 
@@ -11,4 +10,4 @@ export default function ConfirmPasswordPage() {
     );
 }
 
-ConfirmPasswordPage.layout = (page: ReactNode) => <AuthLayout children={page} />;
+ConfirmPasswordPage.layout = [AuthLayout, { title: 'Confirm Password', description: 'This is a secure area of the application. Please confirm your password before continuing.' }];

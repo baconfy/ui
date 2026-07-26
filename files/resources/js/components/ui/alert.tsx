@@ -4,15 +4,15 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const alertVariants = cva(
-  "group/alert relative grid w-full gap-0.5 rounded-lg border px-4 py-3 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4",
+  "group/alert relative grid w-full gap-2 rounded-lg border px-4 py-4 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        default: "bg-card text-card-foreground",
-        success: "bg-card text-success *:data-[slot=alert-description]:text-success/90 *:[svg]:text-current",
-        warning: "bg-card text-warning *:data-[slot=alert-description]:text-warning/90 *:[svg]:text-current",
-        info: "bg-card text-info *:data-[slot=alert-description]:text-info/90 *:[svg]:text-current",
-        destructive: "bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 *:[svg]:text-current",
+        default: "border-border bg-card text-card-foreground",
+        success: "border-success/20 bg-success/10 text-success *:data-[slot=alert-description]:text-success/90",
+        warning: "border-warning/20 bg-warning/10 text-warning *:data-[slot=alert-description]:text-warning/90",
+        info: "border-info/20 bg-info/10 text-info *:data-[slot=alert-description]:text-info/90",
+        destructive: "border-destructive/20 bg-destructive/10 text-destructive *:data-[slot=alert-description]:text-destructive/90",
       },
     },
     defaultVariants: {

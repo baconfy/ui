@@ -1,20 +1,27 @@
 import * as React from 'react';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
 
-function Password({ className, disabled, ...props }: Omit<React.ComponentProps<typeof Input>, 'type'>) {
+function Password({ className, disabled, ...props }: Omit<React.ComponentProps<typeof InputGroupInput>, 'type'>) {
     const [visible, setVisible] = React.useState(false);
 
     return (
-        <div data-slot="password" className="relative">
-            <Input type={visible ? 'text' : 'password'} className={cn('pr-10', className)} disabled={disabled} {...props} />
-            <Button type="button" variant="ghost" size="icon-xs" disabled={disabled} aria-label={visible ? 'Hide password' : 'Show password'} aria-pressed={visible} onClick={() => setVisible((previous) => !previous)} className="absolute top-1/2 right-2 -translate-y-1/2">
-                {visible ? <EyeOffIcon /> : <EyeIcon />}
-            </Button>
-        </div>
+        <InputGroup data-disabled={disabled || undefined} className={className}>
+            <InputGroupInput type={visible ? 'text' : 'password'} disabled={disabled} {...props} />
+
+            <InputGroupAddon align="inline-end">
+                <InputGroupButton
+                    size="icon-sm"
+                    disabled={disabled}
+                    aria-label={visible ? 'Hide password' : 'Show password'}
+                    aria-pressed={visible}
+                    onClick={() => setVisible((previous) => !previous)}
+                >
+                    {visible ? <EyeOffIcon /> : <EyeIcon />}
+                </InputGroupButton>
+            </InputGroupAddon>
+        </InputGroup>
     );
 }
 

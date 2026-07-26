@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-
 import { RegisterForm } from '@/components/domain/auth/register-form';
 import { Link } from '@/components/ui/link';
 import AuthLayout from '@/layouts/auth-layout';
@@ -19,4 +17,4 @@ export default function RegisterPage({ passwordRules }: { passwordRules: string 
     );
 }
 
-RegisterPage.layout = (page: ReactNode) => <AuthLayout title="Create an account" description="Enter your details below to create your account" children={page} />;
+RegisterPage.layout = [AuthLayout, { title: 'Register', description: 'Enter your details below to create your account' }];
