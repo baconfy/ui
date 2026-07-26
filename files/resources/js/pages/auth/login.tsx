@@ -29,4 +29,4 @@ export default function LoginPage({ status, showResetPassword = true, showRegist
     );
 }
 
-LoginPage.layout = [AuthLayout, { title: 'Log in to your account', description: 'Enter your email and password below to log in.' }];
+LoginPage.layout = [AuthLayout, { title: 'Log in to your account', description: 'Use a passkey for the most secure way to sign in.' }];
