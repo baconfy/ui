@@ -3,40 +3,35 @@ import { Button } from '@/components/ui/button';
 import { Field, FieldActions, FieldError, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Password } from '@/components/ui/password';
-import { store } from '@/routes/register';
+import { update } from '@/routes/password';
 
-function RegisterForm({ passwordRules }: { passwordRules: string }) {
+function ResetPasswordForm({ token, email, passwordRules }: { token: string; email: string; passwordRules: string }) {
     return (
         <>
-            <Form {...store.form()} resetOnSuccess={['password', 'password_confirmation']} disableWhileProcessing>
+            <Form {...update.form()} transform={(data) => ({ ...data, token, email })} resetOnSuccess={['password', 'password_confirmation']} disableWhileProcessing>
                 {({ processing, errors }) => (
                     <>
                         <FieldSet>
                             <FieldGroup>
                                 <Field>
-                                    <FieldLabel>Name</FieldLabel>
-                                    <Input id="name" type="text" autoFocus tabIndex={1} autoComplete="name" name="name" placeholder="Full name" />
-                                    <FieldError children={errors.name} />
-                                </Field>
-                                <Field>
                                     <FieldLabel>Email address</FieldLabel>
-                                    <Input id="email" type="email" tabIndex={2} autoComplete="email" name="email" placeholder="email@example.com" />
+                                    <Input id="email" type="email" name="email" autoComplete="email" value={email} readOnly disabled />
                                     <FieldError children={errors.email} />
                                 </Field>
                                 <Field>
                                     <FieldLabel>Password</FieldLabel>
-                                    <Password id="password" tabIndex={3} autoComplete="new-password" name="password" placeholder="Password" passwordrules={passwordRules} />
+                                    <Password id="password" name="password" autoComplete="new-password" autoFocus placeholder="Password" passwordrules={passwordRules} />
                                     <FieldError children={errors.password} />
                                 </Field>
                                 <Field>
                                     <FieldLabel>Confirm password</FieldLabel>
-                                    <Password id="password_confirmation" tabIndex={4} autoComplete="new-password" name="password_confirmation" placeholder="Confirm password" passwordrules={passwordRules} />
+                                    <Password id="password_confirmation" name="password_confirmation" autoComplete="new-password" placeholder="Confirm password" passwordrules={passwordRules} />
                                     <FieldError children={errors.password_confirmation} />
                                 </Field>
                             </FieldGroup>
                             <FieldActions>
-                                <Button type="submit" processing={processing} tabIndex={5} data-test="register-user-button">
-                                    Create account
+                                <Button type="submit" processing={processing} data-test="reset-password-button">
+                                    Reset password
                                 </Button>
                             </FieldActions>
                         </FieldSet>
@@ -47,4 +42,4 @@ function RegisterForm({ passwordRules }: { passwordRules: string }) {
     );
 }
 
-export { RegisterForm };
+export { ResetPasswordForm };

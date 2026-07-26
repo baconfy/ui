@@ -10,13 +10,13 @@ import { store } from '@/routes/login';
 function LoginForm({ status }: { status?: string }) {
     return (
         <>
-            <Form {...store.form()} disableWhileProcessing resetOnSuccess={['password']}>
+            <Form {...store.form()} resetOnSuccess={['password']} disableWhileProcessing>
                 {({ processing, errors }) => (
                     <>
                         <FieldSet>
                             {status && (
                                 <FieldGroup>
-                                    <Alert>
+                                    <Alert variant="success">
                                         <AlertDescription>{status}</AlertDescription>
                                     </Alert>
                                 </FieldGroup>
@@ -24,13 +24,13 @@ function LoginForm({ status }: { status?: string }) {
                             <FieldGroup>
                                 <Field>
                                     <FieldLabel>Email address</FieldLabel>
-                                    <Input type="email" name="email" autoFocus autoComplete="email" placeholder="email@example.com" disabled={processing} />
-                                    <FieldError>{errors.email}</FieldError>
+                                    <Input type="email" name="email" autoFocus autoComplete="email" placeholder="email@example.com" />
+                                    <FieldError children={errors.email} />
                                 </Field>
                                 <Field>
                                     <FieldLabel>Password</FieldLabel>
-                                    <Password name="password" autoComplete="current-password" placeholder="Your password" disabled={processing} />
-                                    <FieldError>{errors.password}</FieldError>
+                                    <Password name="password" autoComplete="current-password" placeholder="Your password" />
+                                    <FieldError children={errors.password} />
                                 </Field>
                                 <Field orientation="horizontal" className="w-fit">
                                     <Checkbox name="remember" />
