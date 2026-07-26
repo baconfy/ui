@@ -1,41 +1,32 @@
-import { Head, setLayoutProps } from '@inertiajs/react';
+import { setLayoutProps } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
 
+import type { TwoFactorMode } from '@/components/domain/auth/two-factor-challenge-form';
+import { TwoFactorChallengeForm } from '@/components/domain/auth/two-factor-challenge-form';
 import AuthLayout from '@/layouts/auth-layout';
 
 export default function TwoFactorChallengePage() {
-    const [showRecoveryInput, setShowRecoveryInput] = useState<boolean>(false);
-    const [code, setCode] = useState<string>('');
+    const [mode, setMode] = useState<TwoFactorMode>('code');
 
-    const authConfigContent = useMemo<{ title: string; description: string; toggleText: string }>(() => {
-        if (showRecoveryInput) {
+    const content = useMemo<{ title: string; description: string; toggleLabel: string }>(() => {
+        if (mode === 'recovery_code') {
             return {
                 title: 'Recovery code',
                 description: 'Please confirm access to your account by entering one of your emergency recovery codes.',
-                toggleText: 'login using an authentication code',
+                toggleLabel: 'login using an authentication code',
             };
         }
 
         return {
             title: 'Authentication code',
             description: 'Enter the authentication code provided by your authenticator application.',
-            toggleText: 'login using a recovery code',
+            toggleLabel: 'login using a recovery code',
         };
-    }, [showRecoveryInput]);
+    }, [mode]);
 
-    setLayoutProps({ title: authConfigContent.title, description: authConfigContent.description });
+    setLayoutProps({ title: content.title, description: content.description });
 
-    const toggleRecoveryMode = (clearErrors: () => void): void => {
-        setShowRecoveryInput(!showRecoveryInput);
-        clearErrors();
-        setCode('');
-    };
-
-    return (
-        <>
-            <Head title="Two-factor Authentication" />
-        </>
-    );
+    return <TwoFactorChallengeForm mode={mode} onModeChange={setMode} toggleLabel={content.toggleLabel} />;
 }
 
 TwoFactorChallengePage.layout = [AuthLayout, { title: 'Two-factor Authentication', description: 'Please confirm access to your account by entering the authentication code provided by your authenticator application.' }];

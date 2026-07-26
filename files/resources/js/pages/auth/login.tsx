@@ -12,7 +12,7 @@ export default function LoginPage({ status, showResetPassword = true, showRegist
 
             <LoginForm status={status} />
 
-            <div className="flex flex-col gap-2 font-bold text-muted-foreground">
+            <div className="flex flex-col gap-2 font-bold text-muted-foreground text-center">
                 {showResetPassword && (
                     <p>
                         Forgot your password? <Link href={request()}>Recover it</Link>
@@ -29,4 +29,4 @@ export default function LoginPage({ status, showResetPassword = true, showRegist
     );
 }
 
-LoginPage.layout = [AuthLayout, { title: 'Log In', description: 'Enter your email and password below to log in.' }];
+LoginPage.layout = [AuthLayout, { title: 'Log in to your account', description: 'Enter your email and password below to log in.' }];
