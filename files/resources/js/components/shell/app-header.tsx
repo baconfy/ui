@@ -20,12 +20,12 @@ export function AppHeader({ breadcrumbs = [], actions, onToggle }: AppHeaderProp
     return (
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
             <NavAction
-                label="Expandir navegação"
+                label="Expand navigation"
                 side="bottom"
                 render={
                     <button type="button" onClick={onToggle} aria-controls="app-navigation" className={cn(navAction, '-ml-1', rescueToggle)}>
                         <PanelLeftOpen className="size-4" />
-                        <span className="sr-only">Expandir navegação</span>
+                        <span className="sr-only">Expand navigation</span>
                     </button>
                 }
             />
@@ -51,12 +51,12 @@ export function AppHeader({ breadcrumbs = [], actions, onToggle }: AppHeaderProp
                 {actions}
 
                 <NavAction
-                    label="Notificações"
+                    label="Notifications"
                     side="bottom"
                     render={
                         <Link href="/notifications" className={navAction}>
                             <Bell className="size-4" />
-                            <span className="sr-only">Notificações</span>
+                            <span className="sr-only">Notifications</span>
                         </Link>
                     }
                 />

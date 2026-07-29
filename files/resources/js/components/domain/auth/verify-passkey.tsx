@@ -4,7 +4,6 @@ import { usePasskeyVerify } from '@laravel/passkeys/react';
 import { KeyRound } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Field, FieldError, FieldGroup, FieldSeparator, FieldSet } from '@/components/ui/field';
-import { Separator } from '@/components/ui/separator';
 
 type Props = {
     routes?: {

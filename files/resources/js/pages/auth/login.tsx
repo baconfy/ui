@@ -12,7 +12,7 @@ export default function LoginPage({ status, showResetPassword = true, showRegist
 
             <LoginForm status={status} />
 
-            <div className="flex flex-col gap-2 font-bold text-muted-foreground text-center">
+            <div className="flex flex-col gap-2 text-center font-bold text-muted-foreground">
                 {showResetPassword && (
                     <p>
                         Forgot your password? <Link href={request()}>Recover it</Link>

@@ -28,14 +28,14 @@ export function NavFooter({ items }: NavFooterProps) {
     }
 
     const dark = resolvedAppearance === 'dark';
-    const temaLabel = dark ? 'Tema claro' : 'Tema escuro';
+    const themeLabel = dark ? 'Light theme' : 'Dark theme';
 
     return (
         <div className="shrink-0 pt-4">
             <DropdownMenu>
                 <DropdownMenuTrigger
                     render={
-                        <button type="button" className="flex w-full items-center gap-3 rounded-lg px-0.5 py-1 text-left transition-colors hover:[&>svg]:text-primary-strong @max-[10rem]:justify-center" data-test="sidebar-menu-button">
+                        <button type="button" className="flex w-full items-center gap-3 rounded-lg px-0.5 py-1 text-left transition-colors @max-[10rem]:justify-center hover:[&>svg]:text-primary-strong" data-test="sidebar-menu-button">
                             <Avatar className="size-10 shrink-0">
                                 <AvatarImage src={auth.user.avatar} alt={auth.user.name} />
                                 <AvatarFallback className="text-base font-black">{getInitials(auth.user.name)}</AvatarFallback>
@@ -69,12 +69,12 @@ export function NavFooter({ items }: NavFooterProps) {
 
                         <DropdownMenuItem render={<Link href="/settings/profile" />}>
                             <Settings />
-                            Configurações
+                            Settings
                         </DropdownMenuItem>
 
                         <DropdownMenuItem onClick={() => updateAppearance(dark ? 'light' : 'dark')}>
                             {dark ? <Sun /> : <Moon />}
-                            {temaLabel}
+                            {themeLabel}
                         </DropdownMenuItem>
 
                         {items.length > 0 && <DropdownMenuSeparator className={separator} />}
@@ -88,9 +88,9 @@ export function NavFooter({ items }: NavFooterProps) {
 
                         <DropdownMenuSeparator className={separator} />
 
-                        <DropdownMenuItem variant="destructive" render={<Link href={logout()} as="button" />}>
+                        <DropdownMenuItem variant="destructive" nativeButton render={<Link href={logout()} as="button" />}>
                             <LogOut />
-                            Sair
+                            Sign out
                         </DropdownMenuItem>
                     </Panel>
                 </DropdownMenuContent>
