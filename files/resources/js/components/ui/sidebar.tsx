@@ -1,65 +1,24 @@
-import * as React from "react"
-import { mergeProps } from "@base-ui/react/merge-props"
-import { useRender } from "@base-ui/react/use-render"
-import { cva, type VariantProps } from "class-variance-authority"
+"use client"
 
-import { useIsMobile } from "@/hooks/use-mobile"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet"
-import { Skeleton } from "@/components/ui/skeleton"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { PanelLeftIcon } from "lucide-react"
+import * as React from 'react';
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
+import { cva, type VariantProps } from 'class-variance-authority';
+
+import { useIsMobile } from '@/hooks/use-mobile';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { PanelLeftIcon } from 'lucide-react';
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-/*
- * Desktop sidebar width — damped proportionality (D10).
- *
- * Anchors, in rem at the initial font-size:
- *   floor   16rem   the chrome of a nav row costs 3.5rem (group p-2 + button
- *                   p-2 + size-4 icon + gap-2), leaving 12.5rem of label room,
- *                   about 28 characters at text-sm. Below this, ordinary labels
- *                   start truncating. It is also today's fixed value, so
- *                   nothing gets narrower than before: the change is purely
- *                   additive, and only where the complaint lives.
- *   slope   7.5vw + 10rem intercept — calibrated to pass through exactly 16rem
- *                   at an 80rem-wide viewport, so it meets the floor with no
- *                   jump. Growth is deliberately SUB-linear: a nav must not be
- *                   a constant fraction of the screen — holding 20% on a 5K
- *                   display would yield a 64rem nav, wider than most laptops.
- *                   The 10rem intercept is the content-determined part that has
- *                   no reason to grow; only the 7.5vw term responds.
- *   ceiling 22rem   leaves 18.5rem of label room, roughly 42 characters. Past
- *                   that a navigation label never uses the width and the
- *                   sidebar reads as a void rather than a panel.
- */
-const SIDEBAR_WIDTH = "clamp(16rem, 10rem + 7.5vw, 22rem)"
-/*
- * Mobile stays fixed, deliberately. The Sheet only exists below the md
- * breakpoint, and a vw term would make the drawer NARROWER on the small phones
- * that need the coverage most while bloating it on wide tablets.
- */
+const SIDEBAR_WIDTH = "24rem"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
-/*
- * The collapsed rail stays fixed because its width is determined by its
- * contents, not by the screen: `size-8` button (2rem) + SidebarGroup `p-2`
- * (1rem) = exactly 3rem. A vw term would only add uneven padding around a
- * button that does not grow. It already tracks the type scale through `rem`,
- * which is what keeps that fit true.
- */
 const SIDEBAR_WIDTH_ICON = "3rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
@@ -140,8 +99,6 @@ function SidebarProvider({
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [toggleSidebar])
 
-  // We add a state so that we can do data-state="expanded" or "collapsed".
-  // This makes it easier to style the sidebar with Tailwind classes.
   const state = open ? "expanded" : "collapsed"
 
   const contextValue = React.useMemo<SidebarContextProps>(
@@ -200,7 +157,7 @@ function Sidebar({
       <div
         data-slot="sidebar"
         className={cn(
-          "flex h-full w-(--sidebar-width) flex-col bg-sidebar text-sidebar-foreground",
+          "flex h-full w-(--sidebar-width) flex-col bg-sidebar text-sidebar-foreground gap-8",
           className
         )}
         {...props}
@@ -245,7 +202,6 @@ function Sidebar({
       data-side={side}
       data-slot="sidebar"
     >
-      {/* This is what handles the sidebar gap on desktop */}
       <div
         data-slot="sidebar-gap"
         className={cn(
@@ -262,7 +218,6 @@ function Sidebar({
         data-side={side}
         className={cn(
           "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex",
-          // Adjust the padding for floating and inset variants.
           variant === "floating" || variant === "inset"
             ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
             : "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
@@ -308,21 +263,30 @@ function SidebarTrigger({
   )
 }
 
-/*
- * SidebarRail (upstream shadcn) was removed, definition and export.
- *
- * It was a second, invisible toggle sitting on the sidebar's edge, duplicating
- * the visible and labelled SidebarTrigger in AppHeader. It communicated badly
- * in three ways at once: `title="Toggle Sidebar"` rendered a NATIVE browser
- * tooltip that no design system can style; `cursor-w-resize`/`e-resize`
- * promised a resize it never performed; and it painted a hairline on hover with
- * no explanation of what it did.
- *
- * Removing the definition — not just the usage — is deliberate: leaving it
- * exported in the company starter kit invites a derived project to reintroduce
- * the exact defect this run was opened to fix. Toggling remains available via
- * SidebarTrigger and the Cmd/Ctrl+B shortcut in SidebarProvider.
- */
+function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
+  const { toggleSidebar } = useSidebar()
+
+  return (
+    <button
+      data-sidebar="rail"
+      data-slot="sidebar-rail"
+      aria-label="Toggle Sidebar"
+      tabIndex={-1}
+      onClick={toggleSidebar}
+      title="Toggle Sidebar"
+      className={cn(
+        "absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] hover:after:bg-sidebar-border sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2",
+        "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize",
+        "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize",
+        "group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar",
+        "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
+        "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
+        className
+      )}
+      {...props}
+    />
+  )
+}
 
 function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
   return (
@@ -337,10 +301,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
   )
 }
 
-function SidebarInput({
-  className,
-  ...props
-}: React.ComponentProps<typeof Input>) {
+function SidebarInput({ className, ...props }: React.ComponentProps<typeof Input>) {
   return (
     <Input
       data-slot="sidebar-input"
@@ -356,7 +317,7 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sidebar-header"
       data-sidebar="header"
-      className={cn("flex flex-col gap-2 p-2", className)}
+      className={cn("flex flex-col p-4 gap-2", className)}
       {...props}
     />
   )
@@ -367,16 +328,13 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sidebar-footer"
       data-sidebar="footer"
-      className={cn("flex flex-col gap-2 p-2", className)}
+      className={cn("flex flex-col gap-2", className)}
       {...props}
     />
   )
 }
 
-function SidebarSeparator({
-  className,
-  ...props
-}: React.ComponentProps<typeof Separator>) {
+function SidebarSeparator({ className, ...props }: React.ComponentProps<typeof Separator>) {
   return (
     <Separator
       data-slot="sidebar-separator"
@@ -503,12 +461,6 @@ const sidebarMenuButtonVariants = cva(
       variant: {
         default: "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
         outline:
-          // The hairline stays a box-shadow, NOT `ring-*`: a ring utility here
-          // collides with the base class's `ring-sidebar-ring` in tailwind-merge
-          // (same ring-color group), which silently deletes it and repaints the
-          // keyboard focus ring in --sidebar-border. `box-shadow` is a separate
-          // merge group, so the hairline and the focus ring coexist as upstream
-          // intended. Both hairline widths are Class 2 exceptions in design.md §4.
           "bg-background shadow-[0_0_0_1px_var(--sidebar-border)] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_var(--sidebar-accent)]",
       },
       size: {
@@ -744,6 +696,7 @@ export {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarProvider,
+  SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
   useSidebar,

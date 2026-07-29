@@ -15,14 +15,6 @@ type FieldContextValue = {
 
 const FieldContext = React.createContext<FieldContextValue | null>(null)
 
-/**
- * Wires a form control to the `Field` that wraps it.
- *
- * Every control primitive (`Input`, `Checkbox`, ...) calls this so the pairing
- * of label, control and error message is produced by the structure itself. An
- * explicit `id` still wins, and outside a `Field` the hook is a no-op — the
- * control keeps behaving exactly as it did before.
- */
 function useFieldControl({ id }: { id?: string }) {
   const field = React.useContext(FieldContext)
 

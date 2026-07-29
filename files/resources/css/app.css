@@ -11,6 +11,7 @@
 
 @theme inline {
     --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-title: 'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-heading: var(--font-sans);
 
     --radius-xs: calc(var(--radius) * 0.3);
@@ -33,6 +34,7 @@
 
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
+    --color-primary-strong: var(--primary-strong);
 
     --color-secondary: var(--secondary);
     --color-secondary-foreground: var(--secondary-foreground);
@@ -77,92 +79,140 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    --spacing-shell: 1rem;
+    --spacing-shell-gap: calc(var(--spacing-shell) * 2);
+
+    --width-panel: 24rem;
+    --width-panel-collapsed: 6rem;
 }
 
 :root {
     --radius: 0.625rem;
 
-    --background: oklch(0.991 0 89.876); /* Emptiness */
-    --foreground: oklch(0.394 0 89.876); /* Wood Charcoal - 9.20:1 */
+    --background: oklch(0.955 0.001 197.138);
+    --foreground: oklch(0.394 0 89.876);
+
     --card: oklch(0.991 0 89.876);
     --card-foreground: oklch(0.394 0 89.876);
+
     --popover: oklch(0.991 0 89.876);
     --popover-foreground: oklch(0.394 0 89.876);
-    --primary: oklch(0.848 0.166 86.591); /* Ripe Mango */
-    --primary-foreground: oklch(0.394 0 89.876); /* Wood Charcoal - 5.87:1 */
-    --secondary: oklch(0.936 0.001 197.138); /* Mourn Mountain Snow */
+
+    --primary: oklch(0.848 0.166 86.591);
+    --primary-foreground: oklch(0.394 0 89.876);
+    --primary-strong: oklch(0.5 0.09 86.591);
+
+    --secondary: oklch(0.936 0.001 197.138);
     --secondary-foreground: oklch(0.394 0 89.876);
+
     --muted: oklch(0.936 0.001 197.138);
-    --muted-foreground: oklch(0.539 0.002 286.348); /* derived #6E6E6F - 4.96:1 */
-    --accent: oklch(0.916 0.093 91.538); /* Imam Ali Gold */
-    --accent-foreground: oklch(0.394 0 89.876); /* Wood Charcoal - 7.38:1 */
-    --destructive: oklch(0.577 0.245 27.325);
+    --muted-foreground: oklch(0.522 0.002 286.348);
+
+    --accent: oklch(0.91 0.002 197.138);
+    --accent-foreground: oklch(0.394 0 89.876);
+
+    --destructive: oklch(0.517 0.21 27.325);
     --destructive-foreground: oklch(0.991 0 89.876);
-    --success: oklch(0.535 0.135 152); /* #128243 - 4.76:1 */
+
+    --success: oklch(0.489 0.125 152);
     --success-foreground: oklch(0.991 0 89.876);
-    --warning: oklch(0.55 0.11 70); /* #9A6418 - 4.86:1 */
+
+    --warning: oklch(0.512 0.11 70);
     --warning-foreground: oklch(0.991 0 89.876);
-    --info: oklch(0.545 0.14 250); /* #1D73BE - 4.82:1 */
+
+    --info: oklch(0.505 0.14 250);
     --info-foreground: oklch(0.991 0 89.876);
-    --link: oklch(0.5 0.09 86.591); /* Ripe Mango escurecido, #7A5F1B - 5.88:1 */
-    --input: oklch(0.802 0.001 286.369); /* Rough Asphalt */
+
+    --input: oklch(0.802 0.001 286.369);
     --input-foreground: oklch(0.394 0 89.876);
-    --border: oklch(0.936 0.001 197.138); /* Mourn Mountain Snow */
-    --ring: oklch(0.848 0.166 86.591); /* Ripe Mango */
+
+    --link: var(--primary-strong);
+
+    --border: oklch(0.936 0.001 197.138);
+
+    --ring: oklch(0.848 0.166 86.591);
+
     --chart-1: oklch(0.848 0.166 86.591);
     --chart-2: oklch(0.916 0.093 91.538);
     --chart-3: oklch(0.394 0 89.876);
     --chart-4: oklch(0.802 0.001 286.369);
     --chart-5: oklch(0.936 0.001 197.138);
-    --sidebar: oklch(0.936 0.001 197.138); /* Mourn Mountain Snow */
+
+    --sidebar: oklch(0.936 0.001 197.138);
     --sidebar-foreground: oklch(0.394 0 89.876);
     --sidebar-primary: oklch(0.848 0.166 86.591);
     --sidebar-primary-foreground: oklch(0.394 0 89.876);
     --sidebar-accent: oklch(0.916 0.093 91.538);
     --sidebar-accent-foreground: oklch(0.394 0 89.876);
-    --sidebar-border: oklch(0.802 0.001 286.369); /* Rough Asphalt */
+    --sidebar-border: oklch(0.802 0.001 286.369);
     --sidebar-ring: oklch(0.848 0.166 86.591);
+
+    --panel-radius: var(--radius-xl);
+    --panel-card-radius: var(--radius-lg);
+    --panel-border: 1px;
+    --panel-frame-padding: 0.5rem;
+    --panel-padding: --spacing(4);
+    --panel-gap: --spacing(4);
+
 }
 
 .dark {
-    --background: oklch(0.289 0 89.876); /* derived #2B2B2B */
-    --foreground: oklch(0.991 0 89.876); /* Emptiness - 13.80:1 */
-    --card: oklch(0.341 0 89.876); /* derived #383838 */
-    --card-foreground: oklch(0.991 0 89.876); /* 11.43:1 */
+    --background: oklch(0.239 0 0);
+    --foreground: oklch(0.991 0 89.876);
+
+    --card: oklch(0.341 0 89.876);
+    --card-foreground: oklch(0.991 0 89.876);
+
     --popover: oklch(0.341 0 89.876);
     --popover-foreground: oklch(0.991 0 89.876);
-    --primary: oklch(0.848 0.166 86.591); /* Ripe Mango */
-    --primary-foreground: oklch(0.394 0 89.876); /* Wood Charcoal - 5.87:1 */
-    --secondary: oklch(0.394 0 89.876); /* Wood Charcoal */
-    --secondary-foreground: oklch(0.991 0 89.876); /* 9.20:1 */
+
+    --primary: oklch(0.848 0.166 86.591);
+    --primary-foreground: oklch(0.394 0 89.876);
+    --primary-strong: oklch(0.848 0.166 86.591);
+
+    --secondary: oklch(0.394 0 89.876);
+    --secondary-foreground: oklch(0.991 0 89.876);
+
     --muted: oklch(0.394 0 89.876);
-    --muted-foreground: oklch(0.802 0.001 286.369); /* Rough Asphalt - 5.08:1 */
-    --accent: oklch(0.394 0 89.876);
-    --accent-foreground: oklch(0.916 0.093 91.538); /* Imam Ali Gold - 7.38:1 */
-    --destructive: oklch(0.704 0.191 22.216);
+    --muted-foreground: oklch(0.768 0.002 286.348);
+
+    --accent: oklch(0.42 0 89.876);
+    --accent-foreground: oklch(0.991 0 89.876);
+
+    --destructive: oklch(0.81 0.106 22.216);
     --destructive-foreground: oklch(0.394 0 89.876);
-    --success: oklch(0.75 0.15 152); /* #58C97D - 6.79:1 */
+
+    --success: oklch(0.778 0.15 152);
     --success-foreground: oklch(0.394 0 89.876);
-    --warning: oklch(0.8 0.14 75); /* #F2AF48 - 7.42:1 */
+
+    --warning: oklch(0.804 0.14 75);
     --warning-foreground: oklch(0.394 0 89.876);
-    --info: oklch(0.72 0.13 250); /* #60AAF3 - 5.76:1 */
+
+    --info: oklch(0.8 0.105 250);
     --info-foreground: oklch(0.394 0 89.876);
-    --link: oklch(0.848 0.166 86.591); /* Ripe Mango - 8.81:1 no dark */
-    --input: oklch(0.802 0.001 286.369 / 25%); /* Rough Asphalt */
+
+    --input: oklch(0.802 0.001 286.369 / 25%);
     --input-foreground: oklch(0.991 0 89.876);
+
+    --link: var(--primary-strong);
+
     --border: oklch(0.802 0.001 286.369 / 18%);
-    --ring: oklch(0.848 0.166 86.591); /* Ripe Mango */
+
+    --ring: oklch(0.848 0.166 86.591);
+
     --chart-1: oklch(0.848 0.166 86.591);
     --chart-2: oklch(0.916 0.093 91.538);
     --chart-3: oklch(0.394 0 89.876);
     --chart-4: oklch(0.802 0.001 286.369);
     --chart-5: oklch(0.936 0.001 197.138);
-    --sidebar: oklch(0.341 0 89.876); /* derived #383838 */
+
+    --sidebar: oklch(0.341 0 89.876);
     --sidebar-foreground: oklch(0.991 0 89.876);
     --sidebar-primary: oklch(0.848 0.166 86.591);
     --sidebar-primary-foreground: oklch(0.394 0 89.876);
-    --sidebar-accent: oklch(0.394 0 89.876);
-    --sidebar-accent-foreground: oklch(0.916 0.093 91.538);
+    --sidebar-accent: oklch(0.848 0.166 86.591 / 15%);
+    --sidebar-accent-foreground: oklch(0.848 0.166 86.591);
     --sidebar-border: oklch(0.802 0.001 286.369 / 18%);
     --sidebar-ring: oklch(0.848 0.166 86.591);
 }
@@ -177,7 +227,7 @@
     }
 
     html {
-        font-size: clamp(16px, 0.75vw, 44px);
+        font-size: clamp(16px, 0.7vw, 52px);
         @apply font-sans;
     }
 

@@ -1,14 +1,15 @@
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
+import { Panel } from '@/components/ui/panel';
 
-function Card({ className, size = "default", ...props }: React.ComponentProps<"div"> & { size?: "default" | "sm" }) {
+function Card({ className, size = "default", ...props }: React.ComponentProps<typeof Panel> & { size?: "default" | "sm" }) {
   return (
-    <div
+    <Panel
       data-slot="card"
       data-size={size}
       className={cn(
-        "group/card w-full flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground shadow-xs ring-1 ring-foreground/10 [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+        "group/card w-full text-sm text-card-foreground [--card-spacing:--spacing(6)]",
         className
       )}
       {...props}

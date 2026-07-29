@@ -35,15 +35,7 @@ const bubbleVariants = cva(
   }
 )
 
-function Bubble({
-  variant = "default",
-  align = "start",
-  className,
-  ...props
-}: React.ComponentProps<"div"> &
-  VariantProps<typeof bubbleVariants> & {
-    align?: "start" | "end"
-  }) {
+function Bubble({ variant = "default", align = "start", className, ...props }: React.ComponentProps<"div"> & VariantProps<typeof bubbleVariants> & { align?: "start" | "end" }) {
   return (
     <div
       data-slot="bubble"
@@ -55,11 +47,7 @@ function Bubble({
   )
 }
 
-function BubbleContent({
-  className,
-  render,
-  ...props
-}: useRender.ComponentProps<"div">) {
+function BubbleContent({ className, render, ...props }: useRender.ComponentProps<"div">) {
   return useRender({
     defaultTagName: "div",
     props: mergeProps<"div">(
@@ -98,15 +86,7 @@ const bubbleReactionsVariants = cva(
   }
 )
 
-function BubbleReactions({
-  side = "bottom",
-  align = "end",
-  className,
-  ...props
-}: React.ComponentProps<"div"> & {
-  align?: "start" | "end"
-  side?: "top" | "bottom"
-}) {
+function BubbleReactions({ side = "bottom", align = "end", className, ...props }: React.ComponentProps<"div"> & { align?: "start" | "end"; side?: "top" | "bottom" }) {
   return (
     <div
       data-slot="bubble-reactions"

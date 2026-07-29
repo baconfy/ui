@@ -1,17 +1,12 @@
 "use client"
 
-import * as React from "react"
-import { Combobox as ComboboxPrimitive } from "@base-ui/react"
+import * as React from 'react';
+import { Combobox as ComboboxPrimitive } from '@base-ui/react';
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from "@/components/ui/input-group"
-import { ChevronDownIcon, XIcon, CheckIcon } from "lucide-react"
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
+import { CheckIcon, ChevronDownIcon, XIcon } from 'lucide-react';
 
 const Combobox = ComboboxPrimitive.Root
 
@@ -140,7 +135,7 @@ function ComboboxItem({
     <ComboboxPrimitive.Item
       data-slot="combobox-item"
       className={cn(
-        "relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-highlighted:bg-accent data-highlighted:text-accent-foreground not-data-[variant=destructive]:data-highlighted:**:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "data-highlighted:[&>svg]:text-primary-strong clickable relative flex w-full items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-base font-medium outline-hidden select-none data-highlighted:bg-accent data-highlighted:text-accent-foreground not-data-[variant=destructive]:data-highlighted:**:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4.5",
         className
       )}
       {...props}

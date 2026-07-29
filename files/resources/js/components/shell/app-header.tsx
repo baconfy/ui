@@ -1,43 +1,66 @@
 import { Link } from '@inertiajs/react';
-import { Fragment } from 'react';
+import { Bell, PanelLeftOpen } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { Fragment } from 'react';
 
+import { NavAction, navAction } from '@/components/shell/nav-action';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
-import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
 import type { BreadcrumbItem as BreadcrumbItemType } from '@/types/shell';
 
 interface AppHeaderProps {
     breadcrumbs?: BreadcrumbItemType[];
     actions?: ReactNode;
+    onToggle: () => void;
 }
 
-export function AppHeader({ breadcrumbs = [], actions }: AppHeaderProps) {
+const rescueToggle = cn('md:hidden', 'md:group-data-[collapsible=offcanvas]/shell:group-data-[state=collapsed]/shell:flex');
+
+export function AppHeader({ breadcrumbs = [], actions, onToggle }: AppHeaderProps) {
     return (
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-            <SidebarTrigger className="-ml-1" />
+            <NavAction
+                label="Expandir navegação"
+                side="bottom"
+                render={
+                    <button type="button" onClick={onToggle} aria-controls="app-navigation" className={cn(navAction, '-ml-1', rescueToggle)}>
+                        <PanelLeftOpen className="size-4" />
+                        <span className="sr-only">Expandir navegação</span>
+                    </button>
+                }
+            />
 
             {breadcrumbs.length > 0 && (
-                <>
-                    <Separator orientation="vertical" className="mr-1.5 h-4 data-vertical:self-center" />
-                    <Breadcrumb>
-                        <BreadcrumbList>
-                            {breadcrumbs.map((item, index) => {
-                                const isLast = index === breadcrumbs.length - 1;
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        {breadcrumbs.map((item, index) => {
+                            const isLast = index === breadcrumbs.length - 1;
 
-                                return (
-                                    <Fragment key={index}>
-                                        <BreadcrumbItem>{isLast || !item.href ? <BreadcrumbPage>{item.title}</BreadcrumbPage> : <BreadcrumbLink render={<Link href={item.href} />}>{item.title}</BreadcrumbLink>}</BreadcrumbItem>
-                                        {!isLast && <BreadcrumbSeparator />}
-                                    </Fragment>
-                                );
-                            })}
-                        </BreadcrumbList>
-                    </Breadcrumb>
-                </>
+                            return (
+                                <Fragment key={index}>
+                                    <BreadcrumbItem>{isLast || !item.href ? <BreadcrumbPage>{item.title}</BreadcrumbPage> : <BreadcrumbLink render={<Link href={item.href} />}>{item.title}</BreadcrumbLink>}</BreadcrumbItem>
+                                    {!isLast && <BreadcrumbSeparator />}
+                                </Fragment>
+                            );
+                        })}
+                    </BreadcrumbList>
+                </Breadcrumb>
             )}
 
-            {actions && <div className="ml-auto flex items-center gap-2">{actions}</div>}
+            <div className="ml-auto flex items-center gap-2">
+                {actions}
+
+                <NavAction
+                    label="Notificações"
+                    side="bottom"
+                    render={
+                        <Link href="/notifications" className={navAction}>
+                            <Bell className="size-4" />
+                            <span className="sr-only">Notificações</span>
+                        </Link>
+                    }
+                />
+            </div>
         </header>
     );
 }
