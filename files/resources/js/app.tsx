@@ -9,24 +9,20 @@ const appName = import.meta.env.VITE_APP_NAME || 'Baconfy';
 const defaultTitle = 'Baconfy';
 
 void createInertiaApp({
-  title: (title) => (title ? `${title} - ${appName}` : defaultTitle),
-  strictMode: true,
-  defaults: {
-    visitOptions: (href, options) => ({
-      preserveScroll: options?.preserveScroll ?? 'errors',
-      ...options,
-    }),
-  },
-  withApp(app, { ssr, page }) {
-    return (
-      <TooltipProvider delay={0}>
-        {app}
-      </TooltipProvider>
-    );
-  },
-  progress: {
-    color: '#FCC425FF',
-  },
+    title: (title) => (title ? `${title} - ${appName}` : defaultTitle),
+    strictMode: true,
+    defaults: {
+        visitOptions: (href, options) => ({
+            preserveScroll: options?.preserveScroll ?? 'errors',
+            ...options,
+        }),
+    },
+    withApp(app, { ssr, page }) {
+        return <TooltipProvider delay={0}>{app}</TooltipProvider>;
+    },
+    progress: {
+        color: '#FCC425FF',
+    },
 });
 
 initializeTheme();
