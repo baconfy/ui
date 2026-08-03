@@ -23,7 +23,9 @@
   "npm": {
     "dependencies": [
       "@laravel/echo-react",
-      "pusher-js"
+      "react-markdown",
+      "pusher-js",
+      "date-fns"
     ],
     "devDependencies": []
   },
@@ -33,15 +35,12 @@
   "remove": [
     "components.json",
     "pnpm-workspace.yaml",
-
     "routes/web.php",
     "routes/settings.php",
-
     "resources/js/pages",
     "resources/js/layouts",
     "resources/js/components",
     "resources/js/hooks/use-mobile.tsx",
-
     "database/migrations/0001_01_01_000000_create_users_table.php"
   ],
   "source": "files"
