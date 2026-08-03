@@ -9,4 +9,4 @@ export default function DashboardPage() {
     );
 }
 
-DashboardPage.layout = [AppLayout, { breadcrumbs: [{ title: 'Home' }] }];
+DashboardPage.layout = [AppLayout, { breadcrumbs: [{ title: 'Dashboard' }] }];

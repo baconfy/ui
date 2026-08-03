@@ -35,15 +35,15 @@ export function NavFooter({ items }: NavFooterProps) {
             <DropdownMenu>
                 <DropdownMenuTrigger
                     render={
-                        <button type="button" className="flex w-full items-center gap-3 rounded-lg px-0.5 py-1 text-left transition-colors @max-[10rem]:justify-center hover:[&>svg]:text-primary-strong" data-test="sidebar-menu-button">
+                        <button type="button" className="flex w-full items-center gap-3 rounded-lg px-0.5 py-1 text-left transition-colors @max-[10rem]:justify-center hover:[&>svg]:text-primary" data-test="sidebar-menu-button">
                             <Avatar className="size-10 shrink-0">
                                 <AvatarImage src={auth.user.avatar} alt={auth.user.name} />
                                 <AvatarFallback className="text-base font-black">{getInitials(auth.user.name)}</AvatarFallback>
                             </Avatar>
 
-                            <div className="grid min-w-0 flex-1 leading-tight @max-[10rem]:hidden">
-                                <span className="truncate font-bold">{auth.user.name}</span>
-                                <span className="truncate text-xs text-muted-foreground">{auth.user.email}</span>
+                            <div className="grid min-w-0 flex-1 @max-[10rem]:hidden gap-0.5">
+                                <span className="line-clamp-1 truncate text-sm leading-none font-bold">{auth.user.name}</span>
+                                <span className="line-clamp-1 truncate text-xs leading-none text-muted-foreground">{auth.user.email}</span>
                             </div>
 
                             <ChevronsUpDown className="size-4 shrink-0 text-muted-foreground @max-[10rem]:hidden" />
@@ -60,7 +60,7 @@ export function NavFooter({ items }: NavFooterProps) {
                             </Avatar>
 
                             <div className="grid min-w-0 gap-0.5">
-                                <span className="truncate leading-none font-bold">{auth.user.name}</span>
+                                <span className="truncate text-sm leading-none font-bold">{auth.user.name}</span>
                                 <span className="truncate text-xs leading-none text-muted-foreground/75">{auth.user.email}</span>
                             </div>
                         </div>

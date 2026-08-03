@@ -6,7 +6,12 @@ import { cn, toUrl } from '@/lib/utils';
 import type { NavItem } from '@/types/navigation';
 
 export function NavLink({ item, active, collapsed }: { item: NavItem; active: boolean; collapsed: boolean }) {
-    const className = cn('group flex h-10 items-center gap-3 rounded-lg px-3.5 font-bold whitespace-nowrap text-foreground transition-colors @max-[10rem]:justify-center', active ? 'cursor-default bg-foreground text-background dark:bg-muted dark:text-foreground [&>svg]:text-primary' : 'clickable hover:bg-accent hover:[&>svg]:text-primary-strong');
+    // The active slab is `primary`, not `foreground`: body text and the brand are
+    // different colours now, and the current page is a brand statement.
+    const className = cn(
+        'group flex h-10 items-center gap-3 rounded-lg px-3.5 font-bold whitespace-nowrap text-foreground transition-colors @max-[10rem]:justify-center',
+        active ? 'cursor-default bg-primary text-primary-foreground [&>svg]:text-primary-foreground' : 'clickable hover:bg-accent hover:[&>svg]:text-primary',
+    );
 
     const content = (
         <>

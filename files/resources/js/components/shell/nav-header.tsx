@@ -23,7 +23,7 @@ export function NavHeader({ expanded, onToggle }: NavHeaderProps) {
                 label={label}
                 side="right"
                 render={
-                    <button type="button" onClick={onToggle} aria-expanded={expanded} aria-controls="app-navigation" className="shrink-0 clickable text-muted-foreground transition-[color,opacity] hover:text-primary-strong @max-[10rem]:absolute @max-[10rem]:opacity-0 @max-[10rem]:group-hover/brand:opacity-100 @max-[10rem]:focus-visible:opacity-100 @min-[10rem]:ml-auto">
+                    <button type="button" onClick={onToggle} aria-expanded={expanded} aria-controls="app-navigation" className="shrink-0 clickable text-muted-foreground transition-[color,opacity] hover:text-primary @max-[10rem]:absolute @max-[10rem]:opacity-0 @max-[10rem]:group-hover/brand:opacity-100 @max-[10rem]:focus-visible:opacity-100 @min-[10rem]:ml-auto">
                         {expanded ? <PanelLeftClose className="size-6" /> : <PanelLeftOpen className="size-6" />}
                         <span className="sr-only">{label}</span>
                     </button>

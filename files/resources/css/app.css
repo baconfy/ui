@@ -12,6 +12,7 @@
 @theme inline {
     --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-title: 'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
     --font-heading: var(--font-sans);
 
     --radius-xs: calc(var(--radius) * 0.3);
@@ -34,7 +35,9 @@
 
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
-    --color-primary-strong: var(--primary-strong);
+    --color-camel: var(--camel);
+    --color-camel-foreground: var(--camel-foreground);
+    --color-camel-deep: var(--camel-deep);
 
     --color-secondary: var(--secondary);
     --color-secondary-foreground: var(--secondary-foreground);
@@ -90,63 +93,78 @@
 :root {
     --radius: 0.625rem;
 
-    --background: oklch(0.955 0.001 197.138);
-    --foreground: oklch(0.394 0 89.876);
+    /* Old money: navy + camel on cream. Hues are fixed — navy 255, camel 65,
+       cream 88 — so every surface and every text tone is a lightness/chroma
+       move within the same three families. */
+    --background: oklch(0.955 0.014 88);
+    --foreground: oklch(0.275 0.02 88);
 
-    --card: oklch(0.991 0 89.876);
-    --card-foreground: oklch(0.394 0 89.876);
+    --card: oklch(0.985 0.008 88);
+    --card-foreground: oklch(0.275 0.02 88);
 
-    --popover: oklch(0.991 0 89.876);
-    --popover-foreground: oklch(0.394 0 89.876);
+    --popover: oklch(0.985 0.008 88);
+    --popover-foreground: oklch(0.275 0.02 88);
 
-    --primary: oklch(0.848 0.166 86.591);
-    --primary-foreground: oklch(0.394 0 89.876);
-    --primary-strong: oklch(0.5 0.09 86.591);
+    /* Body text is warm ink from the cream family, not navy — that keeps navy
+       exclusive to links and primary actions, which is the only way the two
+       read apart. Dark already separates them: cream text, camel links. */
 
-    --secondary: oklch(0.936 0.001 197.138);
-    --secondary-foreground: oklch(0.394 0 89.876);
+    /* Navy reads as text on cream, so `primary` needs no darkened twin here —
+       unlike the gold it replaces. In dark it becomes camel, the side of the
+       brand that contrasts there. */
+    --primary: oklch(0.355 0.085 255);
+    --primary-foreground: oklch(0.985 0.008 88);
 
-    --muted: oklch(0.936 0.001 197.138);
-    --muted-foreground: oklch(0.522 0.002 286.348);
+    /* Camel: a fill, never text at this lightness. `--camel-deep` is its
+       text-safe form, and both resolve to the same tone in dark. */
+    --camel: oklch(0.74 0.085 65);
+    --camel-foreground: oklch(0.275 0.02 88);
+    --camel-deep: oklch(0.48 0.09 65);
 
-    --accent: oklch(0.91 0.002 197.138);
-    --accent-foreground: oklch(0.394 0 89.876);
+    --secondary: oklch(0.922 0.018 88);
+    --secondary-foreground: oklch(0.275 0.02 88);
 
-    --destructive: oklch(0.517 0.21 27.325);
-    --destructive-foreground: oklch(0.991 0 89.876);
+    --muted: oklch(0.922 0.018 88);
+    --muted-foreground: oklch(0.48 0.016 88);
 
-    --success: oklch(0.489 0.125 152);
-    --success-foreground: oklch(0.991 0 89.876);
+    --accent: oklch(0.89 0.024 88);
+    --accent-foreground: oklch(0.275 0.02 88);
 
-    --warning: oklch(0.512 0.11 70);
-    --warning-foreground: oklch(0.991 0 89.876);
+    --destructive: oklch(0.472 0.17 27);
+    --destructive-foreground: oklch(0.985 0.008 88);
 
-    --info: oklch(0.505 0.14 250);
-    --info-foreground: oklch(0.991 0 89.876);
+    --success: oklch(0.46 0.1 155);
+    --success-foreground: oklch(0.985 0.008 88);
 
-    --input: oklch(0.802 0.001 286.369);
-    --input-foreground: oklch(0.394 0 89.876);
+    --warning: oklch(0.48 0.09 65);
+    --warning-foreground: oklch(0.985 0.008 88);
 
-    --link: var(--primary-strong);
+    --info: oklch(0.47 0.11 250);
+    --info-foreground: oklch(0.985 0.008 88);
 
-    --border: oklch(0.936 0.001 197.138);
+    --input: oklch(0.82 0.022 88);
+    --input-foreground: oklch(0.275 0.02 88);
 
-    --ring: oklch(0.848 0.166 86.591);
+    --link: var(--primary);
 
-    --chart-1: oklch(0.848 0.166 86.591);
-    --chart-2: oklch(0.916 0.093 91.538);
-    --chart-3: oklch(0.394 0 89.876);
-    --chart-4: oklch(0.802 0.001 286.369);
-    --chart-5: oklch(0.936 0.001 197.138);
+    --border: oklch(0.88 0.02 88);
 
-    --sidebar: oklch(0.936 0.001 197.138);
-    --sidebar-foreground: oklch(0.394 0 89.876);
-    --sidebar-primary: oklch(0.848 0.166 86.591);
-    --sidebar-primary-foreground: oklch(0.394 0 89.876);
-    --sidebar-accent: oklch(0.916 0.093 91.538);
-    --sidebar-accent-foreground: oklch(0.394 0 89.876);
-    --sidebar-border: oklch(0.802 0.001 286.369);
-    --sidebar-ring: oklch(0.848 0.166 86.591);
+    --ring: oklch(0.355 0.085 255);
+
+    --chart-1: oklch(0.355 0.085 255);
+    --chart-2: oklch(0.74 0.085 65);
+    --chart-3: oklch(0.55 0.06 255);
+    --chart-4: oklch(0.62 0.07 65);
+    --chart-5: oklch(0.478 0.035 255);
+
+    --sidebar: oklch(0.985 0.008 88);
+    --sidebar-foreground: oklch(0.275 0.02 88);
+    --sidebar-primary: oklch(0.355 0.085 255);
+    --sidebar-primary-foreground: oklch(0.985 0.008 88);
+    --sidebar-accent: oklch(0.89 0.024 88);
+    --sidebar-accent-foreground: oklch(0.275 0.02 88);
+    --sidebar-border: oklch(0.88 0.02 88);
+    --sidebar-ring: oklch(0.355 0.085 255);
 
     --panel-radius: var(--radius-xl);
     --panel-card-radius: var(--radius-lg);
@@ -155,66 +173,73 @@
     --panel-padding: --spacing(4);
     --panel-gap: --spacing(4);
 
+    --noise-opacity: 0.2;
 }
 
 .dark {
-    --background: oklch(0.239 0 0);
-    --foreground: oklch(0.991 0 89.876);
+    --background: oklch(0.19 0.03 255);
+    --foreground: oklch(0.955 0.012 88);
 
-    --card: oklch(0.341 0 89.876);
-    --card-foreground: oklch(0.991 0 89.876);
+    --card: oklch(0.245 0.034 255);
+    --card-foreground: oklch(0.955 0.012 88);
 
-    --popover: oklch(0.341 0 89.876);
-    --popover-foreground: oklch(0.991 0 89.876);
+    --popover: oklch(0.245 0.034 255);
+    --popover-foreground: oklch(0.955 0.012 88);
 
-    --primary: oklch(0.848 0.166 86.591);
-    --primary-foreground: oklch(0.394 0 89.876);
-    --primary-strong: oklch(0.848 0.166 86.591);
+    /* Camel carries `primary` here: navy on navy would vanish. */
+    --primary: oklch(0.79 0.09 65);
+    --primary-foreground: oklch(0.19 0.03 255);
 
-    --secondary: oklch(0.394 0 89.876);
-    --secondary-foreground: oklch(0.991 0 89.876);
+    --camel: oklch(0.79 0.09 65);
+    --camel-foreground: oklch(0.19 0.03 255);
+    --camel-deep: oklch(0.79 0.09 65);
 
-    --muted: oklch(0.394 0 89.876);
-    --muted-foreground: oklch(0.768 0.002 286.348);
+    --secondary: oklch(0.31 0.036 255);
+    --secondary-foreground: oklch(0.955 0.012 88);
 
-    --accent: oklch(0.42 0 89.876);
-    --accent-foreground: oklch(0.991 0 89.876);
+    --muted: oklch(0.31 0.036 255);
+    --muted-foreground: oklch(0.77 0.022 88);
 
-    --destructive: oklch(0.81 0.106 22.216);
-    --destructive-foreground: oklch(0.394 0 89.876);
+    --accent: oklch(0.35 0.04 255);
+    --accent-foreground: oklch(0.955 0.012 88);
 
-    --success: oklch(0.778 0.15 152);
-    --success-foreground: oklch(0.394 0 89.876);
+    --destructive: oklch(0.77 0.13 27);
+    --destructive-foreground: oklch(0.19 0.03 255);
 
-    --warning: oklch(0.804 0.14 75);
-    --warning-foreground: oklch(0.394 0 89.876);
+    --success: oklch(0.78 0.13 155);
+    --success-foreground: oklch(0.19 0.03 255);
 
-    --info: oklch(0.8 0.105 250);
-    --info-foreground: oklch(0.394 0 89.876);
+    --warning: oklch(0.79 0.09 65);
+    --warning-foreground: oklch(0.19 0.03 255);
 
-    --input: oklch(0.802 0.001 286.369 / 25%);
-    --input-foreground: oklch(0.991 0 89.876);
+    --info: oklch(0.76 0.1 250);
+    --info-foreground: oklch(0.19 0.03 255);
 
-    --link: var(--primary-strong);
+    --input: oklch(0.955 0.012 88 / 20%);
+    --input-foreground: oklch(0.955 0.012 88);
 
-    --border: oklch(0.802 0.001 286.369 / 18%);
+    --link: var(--primary);
 
-    --ring: oklch(0.848 0.166 86.591);
+    --border: oklch(0.955 0.012 88 / 14%);
 
-    --chart-1: oklch(0.848 0.166 86.591);
-    --chart-2: oklch(0.916 0.093 91.538);
-    --chart-3: oklch(0.394 0 89.876);
-    --chart-4: oklch(0.802 0.001 286.369);
-    --chart-5: oklch(0.936 0.001 197.138);
+    --ring: oklch(0.79 0.09 65);
 
-    --sidebar: oklch(0.341 0 89.876);
-    --sidebar-foreground: oklch(0.991 0 89.876);
-    --sidebar-primary: oklch(0.848 0.166 86.591);
-    --sidebar-primary-foreground: oklch(0.394 0 89.876);
-    --sidebar-accent: oklch(0.848 0.166 86.591 / 15%);
-    --sidebar-accent-foreground: oklch(0.848 0.166 86.591);
-    --sidebar-border: oklch(0.802 0.001 286.369 / 18%);
-    --sidebar-ring: oklch(0.848 0.166 86.591);
+    --chart-1: oklch(0.79 0.09 65);
+    --chart-2: oklch(0.68 0.09 255);
+    --chart-3: oklch(0.62 0.07 65);
+    --chart-4: oklch(0.55 0.08 255);
+    --chart-5: oklch(0.77 0.022 88);
+
+    --sidebar: oklch(0.245 0.034 255);
+    --sidebar-foreground: oklch(0.955 0.012 88);
+    --sidebar-primary: oklch(0.79 0.09 65);
+    --sidebar-primary-foreground: oklch(0.19 0.03 255);
+    --sidebar-accent: oklch(0.35 0.04 255);
+    --sidebar-accent-foreground: oklch(0.955 0.012 88);
+    --sidebar-border: oklch(0.955 0.012 88 / 14%);
+    --sidebar-ring: oklch(0.79 0.09 65);
+
+    --noise-opacity: 0.16;
 }
 
 @layer base {
@@ -228,11 +253,39 @@
 
     html {
         font-size: clamp(16px, 0.7vw, 52px);
-        @apply font-sans;
+        @apply bg-background antialiased font-sans;
     }
 
+    /* No background here on purpose: `html` owns the page colour. A background
+       on `body` would paint over `body::before`, because a block-level
+       descendant's background paints after negative z-index children. */
     body {
-        @apply bg-background text-foreground scroll-smooth scrollbar-thin scrollbar-gutter-stable;
+        @apply text-foreground scroll-smooth scrollbar-thin scrollbar-gutter-stable;
+    }
+
+    /**
+     * Film grain over the shell background. `z-index: -1` keeps it above the
+     * canvas colour but behind every element, so cards and panels stay clean —
+     * the grain only shows where the background itself shows.
+     *
+     * The texture is an inline `feTurbulence` desaturated to grey: no asset to
+     * ship, no network request, and it resolves at any density. Strength is a
+     * token because the two themes need different amounts.
+     */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        opacity: var(--noise-opacity);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0.33 0.33 0.33 0 0 0.33 0.33 0.33 0 0 0.33 0.33 0.33 0 0 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    @media (prefers-reduced-transparency: reduce) {
+        body::before {
+            display: none;
+        }
     }
 
     button:not(:disabled),
@@ -243,6 +296,10 @@
 
 @utility clickable {
     @apply cursor-pointer active:scale-[0.98] active:transition-all;
+}
+
+@utility link {
+    @apply clickable font-medium text-primary transition-colors hover:underline underline-offset-6;
 }
 
 input:-webkit-autofill,

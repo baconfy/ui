@@ -9,7 +9,9 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-foreground/85 text-background hover:bg-foreground",
+        // `primary`, not `foreground`: the main action is a brand statement, and
+        // borrowing the text colour only worked while the two happened to match.
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
         primary: "bg-primary text-primary-foreground hover:bg-primary/80",
         outline: "border-muted-foreground text-muted-foreground bg-transparent hover:border-primary hover:text-primary aria-expanded:bg-muted aria-expanded:text-foreground",
         secondary: "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
@@ -25,10 +27,10 @@ const buttonVariants = cva(
         xs: "h-8 gap-2 rounded-md px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*='size-'])]:size-3",
         sm: "h-10 gap-2 rounded-md px-4 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
         lg: "h-14 gap-2 px-6 has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4",
-        icon: "size-12",
+        icon: "size-12 [&_svg:not([class*='size-'])]:size-6",
         "icon-xs": "size-8 rounded-xs in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3",
         "icon-sm": "size-10 rounded-sm in-data-[slot=button-group]:rounded-md",
-        "icon-lg": "size-14",
+        "icon-lg": "size-14 [&_svg:not([class*='size-'])]:size-8",
       },
     },
     defaultVariants: {

@@ -1,16 +1,11 @@
-import { Activity, BookOpen, CircleHelp, Layers, LayoutGrid, Rocket } from 'lucide-react';
+import { BookOpen, CircleHelp, LayoutGrid } from 'lucide-react';
 import { dashboard } from '@/routes';
 import type { NavGroup, NavItem } from '@/types/navigation';
 
 export const navigation: NavGroup[] = [
     {
         label: 'Menu',
-        items: [
-            { title: 'Dashboard', href: dashboard(), icon: LayoutGrid },
-            { title: 'Projects', href: '/projects', icon: Layers },
-            { title: 'Deployments', href: '/deployments', icon: Rocket },
-            { title: 'Activity', href: '/activity', icon: Activity },
-        ],
+        items: [{ title: 'Dashboard', href: dashboard(), icon: LayoutGrid }],
     },
 ];
 
