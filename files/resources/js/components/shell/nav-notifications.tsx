@@ -8,7 +8,6 @@ import { resolveNotification } from '@/components/domain/notifications';
 import { Button } from '@/components/ui/button';
 import { Panel } from '@/components/ui/panel';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { dayLabel } from '@/lib/datetime';
 import type { Notification } from '@/types/shell';
 
 export function NavNotifications() {
@@ -17,19 +16,6 @@ export function NavNotifications() {
 
     const scrollArea = useRef<HTMLDivElement>(null);
 
-    /**
-     * A notification broadcast while the app is open.
-     *
-     * The payload is not merged into the list by hand — that would mean writing
-     * the resource's shape a second time, in another language, and drifting the
-     * moment either side changes. The server is asked for the list instead.
-     *
-     * `reset` and not `only`: merging appends, so a row that just arrived would
-     * land at the bottom of a list sorted newest-first. Resetting re-anchors the
-     * list at page one, where the new row belongs. Pages the reader had scrolled
-     * into are dropped, which is the right trade when the top of the list just
-     * changed.
-     */
     useEchoNotification(`App.Models.User.${auth.user.id}`, () => {
         router.reload({ only: ['unreadCount'], reset: ['notifications'] });
     });
@@ -38,7 +24,7 @@ export function NavNotifications() {
         <Popover>
             <PopoverTrigger
                 render={
-                    <Button variant="ghost" size="icon" className="relative text-muted-foreground" aria-label="Notifications">
+                    <Button variant="ghost" size="icon" className="relative text-muted-foreground">
                         {unreadCount > 0 ? <BellRing /> : <Bell />}
 
                         {unreadCount > 0 && <span className="absolute top-2 right-2 size-2 animate-ping rounded-full bg-primary motion-reduce:animate-none" />}
@@ -71,9 +57,9 @@ export function NavNotifications() {
                     ) : (
                         <div ref={scrollArea} className="-mx-2 no-scrollbar max-h-96 min-h-56 overflow-y-auto overscroll-contain">
                             <InfiniteScroll data="notifications" itemsElement={scrollArea} preserveUrl onlyNext loading={<p className="py-3 text-center text-xs text-muted-foreground">Loading…</p>}>
-                                {groupByDay(rows).map((group) => (
-                                    <section key={group.label} className="grid gap-0.5">
-                                        <h3 className="sticky top-0 z-10 bg-card/85 py-1.5 text-xs font-bold tracking-wide text-muted-foreground/50 uppercase">{group.label}</h3>
+                                {groupByReadState(rows).map((group) => (
+                                    <section key={group.label} className="mb-2 grid gap-0.5">
+                                        <h3 className="sticky top-0 z-10 bg-card py-1.5 text-xs font-bold tracking-wide text-muted-foreground/50 uppercase">{group.label}</h3>
 
                                         {group.items.map((notification) => {
                                             const Row = resolveNotification(notification.data.type);
@@ -91,33 +77,23 @@ export function NavNotifications() {
     );
 }
 
-function groupByDay(notifications: Notification[]) {
-    const groups: { label: string; items: Notification[] }[] = [];
-
-    for (const notification of notifications) {
-        const label = dayLabel(notification.created_at);
-        const last = groups.at(-1);
-
-        if (last?.label === label) {
-            last.items.push(notification);
-        } else {
-            groups.push({ label, items: [notification] });
-        }
-    }
-
-    return groups;
+function groupByReadState(notifications: Notification[]) {
+    return [
+        { label: 'New', items: notifications.filter((notification) => !notification.read_at) },
+        { label: 'Older', items: notifications.filter((notification) => notification.read_at) },
+    ].filter((group) => group.items.length > 0);
 }
 
 function EmptyState() {
     return (
-        <div className="flex min-h-56 flex-col items-center justify-center gap-3 px-6 text-center">
-            <span className="flex size-11 items-center justify-center rounded-full bg-muted text-muted-foreground">
-                <BellOff className="size-5" />
+        <div className="flex min-h-56 flex-col items-center justify-center gap-4 text-center">
+            <span className="flex size-24 items-center justify-center rounded-full bg-muted text-muted-foreground">
+                <BellOff className="size-12" />
             </span>
 
             <span className="grid gap-1">
-                <span className="text-sm font-semibold text-foreground">Nothing here yet</span>
-                <span className="max-w-48 text-xs text-muted-foreground">We'll let you know the moment something happens.</span>
+                <span className="text-sm font-semibold text-primary">Nothing here yet</span>
+                <span className="max-w-48 text-xs text-muted-foreground/50">We'll let you know the moment something happens.</span>
             </span>
         </div>
     );

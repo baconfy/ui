@@ -12,9 +12,9 @@ import type { BreadcrumbItem } from '@/types/shell';
 
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 
-const shell = cn('group/shell flex h-dvh gap-shell-gap overflow-hidden p-shell', 'data-[side=right]:flex-row-reverse', 'data-[variant=sidebar]:gap-0 data-[variant=sidebar]:p-0', 'data-[variant=sidebar]:[--panel-card-radius:0px] data-[variant=sidebar]:[--panel-frame-padding:0px] data-[variant=sidebar]:[--panel-radius:0px]', 'md:data-[collapsible=offcanvas]:data-[state=collapsed]:gap-0', 'md:data-[collapsible=offcanvas]:data-[state=collapsed]:[--panel-border:0px] md:data-[collapsible=offcanvas]:data-[state=collapsed]:[--panel-frame-padding:0px]');
+const shell = cn('group/shell flex h-dvh gap-shell-gap overflow-hidden max-md:gap-2 max-md:p-2 md:p-shell', 'data-[side=right]:flex-row-reverse', 'data-[variant=sidebar]:gap-0 data-[variant=sidebar]:p-0', 'data-[variant=sidebar]:[--panel-card-radius:0px] data-[variant=sidebar]:[--panel-frame-padding:0px] data-[variant=sidebar]:[--panel-radius:0px]', 'md:data-[collapsible=offcanvas]:data-[state=collapsed]:gap-0', 'md:data-[collapsible=offcanvas]:data-[state=collapsed]:[--panel-border:0px] md:data-[collapsible=offcanvas]:data-[state=collapsed]:[--panel-frame-padding:0px]');
 
-const sidebarPanel = cn('@container w-panel shrink-0 overflow-hidden transition-[width,translate] duration-200 motion-reduce:transition-none', 'md:group-data-[state=collapsed]/shell:w-panel-collapsed', 'md:group-data-[collapsible=offcanvas]/shell:group-data-[state=collapsed]/shell:w-0', 'max-md:fixed max-md:inset-y-shell max-md:start-shell max-md:z-50 max-md:translate-x-0', 'max-md:group-data-[side=right]/shell:start-auto max-md:group-data-[side=right]/shell:end-shell', 'max-md:group-data-[drawer=closed]/shell:-translate-x-[calc(100%+var(--spacing-shell))]', 'max-md:group-data-[drawer=closed]/shell:group-data-[side=right]/shell:translate-x-[calc(100%+var(--spacing-shell))]');
+const sidebarPanel = cn('@container w-panel shrink-0 overflow-hidden transition-[width,translate] duration-200 motion-reduce:transition-none', 'max-md:max-w-[calc(100%-1rem)]', 'md:group-data-[state=collapsed]/shell:w-panel-collapsed', 'md:group-data-[collapsible=offcanvas]/shell:group-data-[state=collapsed]/shell:w-0', 'max-md:fixed max-md:inset-y-2 max-md:start-2 max-md:z-50 max-md:translate-x-0', 'max-md:group-data-[side=right]/shell:start-auto max-md:group-data-[side=right]/shell:end-2', 'max-md:group-data-[drawer=closed]/shell:-translate-x-[calc(100%+var(--spacing-shell))]', 'max-md:group-data-[drawer=closed]/shell:group-data-[side=right]/shell:translate-x-[calc(100%+var(--spacing-shell))]');
 
 interface AppLayoutProps {
     children: ReactNode;
@@ -49,7 +49,7 @@ export default function AppLayout({ children, breadcrumbs = [], headerActions }:
 
     return (
         <div className={shell} data-variant={variant} data-collapsible={collapsible} data-side={side} data-state={collapsed ? 'collapsed' : 'expanded'} data-drawer={drawerOpen ? 'open' : 'closed'}>
-            {drawerOpen && <button type="button" aria-label="Close navigation" onClick={() => setDrawerOpen(false)} className="fixed inset-0 z-40 bg-black/50 md:hidden" />}
+            {drawerOpen && <button type="button" aria-label="Close navigation" onClick={() => setDrawerOpen(false)} className="fixed inset-0 z-40 backdrop-blur-sm backdrop-brightness-90 md:hidden" />}
 
             <Panel id="app-navigation" className={sidebarPanel}>
                 <AppSidebar collapsed={collapsed} onToggle={toggle} />

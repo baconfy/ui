@@ -1,8 +1,10 @@
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
+import { X } from 'lucide-react';
 import { createContext, use, type ComponentProps } from 'react';
 
+import destroyNotification from '@/actions/App/Http/Controllers/Notifications/DestroyNotificationController';
+import openNotification from '@/actions/App/Http/Controllers/Notifications/OpenNotificationController';
 import { InlineMarkdown } from '@/components/ui/markdown';
-import markNotificationAsRead from '@/actions/App/Http/Controllers/Notifications/MarkNotificationAsReadController';
 import { relativeTime } from '@/lib/datetime';
 import { cn } from '@/lib/utils';
 import type { Notification, NotificationTone } from '@/types/shell';
@@ -30,25 +32,17 @@ function useNotification(): Notification {
  * The row itself. Publishes the notification so the parts below can read
  * `read_at` and `created_at` without being handed them one by one.
  *
+ * A plain container, not a link. The whole row is still clickable — the title
+ * stretches its own hit area across it — but the link stays a sibling of the
+ * delete control rather than its parent, because the HTML content model of `a`
+ * forbids an interactive descendant.
+ *
  * Vertical rhythm belongs to the list, not the row: no margin here.
  */
-export function NotificationRow({ notification, className, ...props }: { notification: Notification } & ComponentProps<typeof Link>) {
+export function NotificationRow({ notification, className, ...props }: { notification: Notification } & ComponentProps<'div'>) {
     return (
         <NotificationContext value={notification}>
-            {/* Reading a row marks it read — true of every type, so it lives here
-                rather than being reimplemented, or forgotten, by each one.
-
-                The Wayfinder action carries both the url and the method, so the
-                `method` prop is unnecessary. `only` keeps the response to the two
-                props that actually change. */}
-            <Link
-                href={markNotificationAsRead(notification.id)}
-                as="button"
-                only={['notifications', 'unreadCount']}
-                preserveScroll
-                className={cn('clickable group/row relative flex w-full items-start gap-3 rounded-lg px-3 py-2.5 text-left transition-colors', 'hover:bg-accent focus-visible:bg-accent focus-visible:outline-none', className)}
-                {...props}
-            />
+            <div className={cn('clickable group/row relative flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors', 'hover:bg-accent focus-within:bg-accent', className)} {...props} />
         </NotificationContext>
     );
 }
@@ -71,15 +65,51 @@ export function NotificationIcon({ className, ...props }: ComponentProps<'span'>
     const notification = useNotification();
     const unread = !notification.read_at;
 
-    return <span className={cn('flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors [&_svg]:size-4', unread ? TONES[notification.data.tone ?? 'neutral'] : 'bg-muted text-muted-foreground', className)} {...props} />;
+    return <span className={cn('flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full transition-colors [&_svg]:size-4', unread ? TONES[notification.data.tone ?? 'neutral'] : 'bg-muted text-muted-foreground', className)} {...props} />;
 }
 
 /**
- * The text column. `flex-1` is what pushes whatever follows — usually the dot —
- * onto a fixed right edge instead of trailing each title's width.
+ * The text column. `flex-1` is what pushes whatever follows — usually the time
+ * and the marker — onto a fixed right edge instead of trailing each title's
+ * width.
  */
-export function NotificationBody({ className, ...props }: ComponentProps<'span'>) {
-    return <span className={cn('grid min-w-0 flex-1 gap-0.5', className)} {...props} />;
+export function NotificationBody({ className, ...props }: ComponentProps<'div'>) {
+    return <div className={cn('grid min-w-0 flex-1 gap-0.5', className)} {...props} />;
+}
+
+/** The first line: title, then time, then the marker. */
+export function NotificationHeader({ className, ...props }: ComponentProps<'div'>) {
+    return <div className={cn('flex items-center gap-2', className)} {...props} />;
+}
+
+/**
+ * The title, and the row's link.
+ *
+ * `after:inset-0` stretches the anchor's hit area over the whole row, so the
+ * link keeps real text for its accessible name while the reader can click
+ * anywhere. The cost is that the description below cannot be selected — the
+ * overlay is on top of it.
+ */
+export function NotificationTitle({ children, className, ...props }: ComponentProps<typeof Link> & { children: string }) {
+    const notification = useNotification();
+    const unread = !notification.read_at;
+
+    const navigates = Boolean(notification.data.url);
+
+    return (
+        <Link href={openNotification(notification.id)} only={navigates ? undefined : ['notifications', 'unreadCount']} preserveScroll={!navigates} className={cn('block min-w-0 flex-1 truncate text-sm after:absolute after:inset-0 after:rounded-lg', unread ? 'font-semibold text-foreground' : 'font-medium text-muted-foreground', className)} {...props}>
+            <InlineMarkdown>{children}</InlineMarkdown>
+        </Link>
+    );
+}
+
+/** The detail under the title, clamped to two lines. Rendered as inline Markdown. */
+export function NotificationDescription({ children, className, ...props }: ComponentProps<'p'> & { children: string }) {
+    return (
+        <p className={cn('line-clamp-2 text-xs leading-snug text-muted-foreground/80', className)} {...props}>
+            <InlineMarkdown>{children}</InlineMarkdown>
+        </p>
+    );
 }
 
 /** Relative time, sized as a label rather than as content. */
@@ -87,27 +117,40 @@ export function NotificationTime({ className, ...props }: ComponentProps<'span'>
     const notification = useNotification();
 
     return (
-        <span className={cn('text-[0.6875rem] leading-none text-muted-foreground/70', className)} {...props}>
+        <span className={cn('shrink-0 text-[0.6875rem] leading-none text-muted-foreground/70', className)} {...props}>
             {relativeTime(notification.created_at)}
         </span>
     );
 }
 
-/** The sentence. Rendered as inline Markdown, clamped to two lines. */
-export function NotificationTitle({ children, className, ...props }: ComponentProps<'span'> & { children: string }) {
+/**
+ * The right edge of the first line. It holds one of two things and never both:
+ * the unread dot, or the control that throws the row away.
+ *
+ * The order is the point. A notification cannot be deleted before it has been
+ * opened — enforced on the server, not just hidden here — so "I never got it"
+ * stops being a story anybody can tell. That the dot and the X are mutually
+ * exclusive states falls out of the same rule, and is why they can share one
+ * slot without ever competing for it.
+ *
+ * Fixed width either way, so the time lands on the same edge in both states.
+ */
+export function NotificationMarker({ className, ...props }: ComponentProps<'span'>) {
     const notification = useNotification();
-    const unread = !notification.read_at;
+
+    if (!notification.read_at) {
+        return (
+            <span className={cn('flex size-4 shrink-0 items-center justify-center', className)} {...props}>
+                <span className="size-1.5 rounded-full bg-primary" />
+            </span>
+        );
+    }
 
     return (
-        <span className={cn('line-clamp-2 text-xs leading-relaxed', unread ? 'font-semibold text-foreground' : 'font-medium text-muted-foreground', className)} {...props}>
-            <InlineMarkdown>{children}</InlineMarkdown>
+        <span className={cn('flex size-4 shrink-0 items-center justify-center', className)} {...props}>
+            <button type="button" onClick={() => router.visit(destroyNotification(notification.id), { only: ['unreadCount'], reset: ['notifications'], preserveScroll: true })} aria-label="Delete notification" className="relative rounded-xs text-muted-foreground transition-colors hover:text-destructive">
+                <X className="size-3.5" />
+            </button>
         </span>
     );
-}
-
-/** The unread marker. Stays in the layout when read, so rows never shift. */
-export function NotificationDot({ className, ...props }: ComponentProps<'span'>) {
-    const notification = useNotification();
-
-    return <span className={cn('mt-1 size-1.5 shrink-0 rounded-full transition-colors', notification.read_at ? 'bg-transparent' : 'bg-primary', className)} {...props} />;
 }

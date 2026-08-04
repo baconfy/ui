@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\Http\Controllers\Notifications;
+namespace App\Http\Controllers\Notifications;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

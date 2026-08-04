@@ -51,7 +51,7 @@ export function NavFooter({ items }: NavFooterProps) {
                     }
                 />
 
-                <DropdownMenuContent className="w-full rounded-(--panel-radius) border-0 bg-transparent p-0 shadow-xl ring-0 md:min-w-80" align="end" side={isMobile ? 'bottom' : 'right'}>
+                <DropdownMenuContent className="w-full min-w-80 rounded-(--panel-radius) border-0 bg-transparent p-0 shadow-xl ring-0" align="end" side={isMobile ? 'bottom' : 'right'}>
                     <Panel className="w-full [--panel-gap:0px] [--panel-padding:--spacing(4)]">
                         <div className="flex flex-col items-center gap-4 pb-2 text-center">
                             <Avatar className="size-14">

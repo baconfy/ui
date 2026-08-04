@@ -161,12 +161,16 @@
     --panel-padding: --spacing(4);
     --panel-gap: --spacing(4);
 
-    --noise-opacity: 0.2;
+    /* The grain is a flat grey sheet, so this dial trades texture against colour
+       fidelity: past roughly 0.3 the page reads as washed rather than grained.
+       Making it grainier without that cost means a different noise — a sparse
+       mask tinted per theme — not a higher number here. */
+    --noise-opacity: 0.28;
 }
 
 .dark {
     --background: oklch(0.19 0.03 255);
-    --foreground: oklch(0.925 0.01 247.939);
+    --foreground: oklch(0.955 0.012 88);
 
     --card: oklch(0.245 0.034 255);
     --card-foreground: oklch(0.955 0.012 88);
@@ -226,7 +230,7 @@
     --sidebar-border: oklch(0.955 0.012 88 / 14%);
     --sidebar-ring: oklch(0.79 0.09 65);
 
-    --noise-opacity: 0.16;
+    --noise-opacity: 0.24;
 }
 
 @layer base {
@@ -240,11 +244,11 @@
 
     html {
         font-size: clamp(16px, 0.7vw, 52px);
-        @apply bg-background antialiased font-sans;
+        @apply bg-background;
     }
 
     body {
-        @apply text-foreground scroll-smooth scrollbar-thin scrollbar-gutter-stable;
+        @apply scrollbar-thin scrollbar-gutter-stable scroll-smooth font-sans text-foreground antialiased;
     }
 
     body::before {
@@ -274,7 +278,7 @@
 }
 
 @utility link {
-    @apply clickable font-medium text-primary transition-colors hover:underline underline-offset-6;
+    @apply clickable font-medium text-primary underline-offset-6 transition-colors hover:underline;
 }
 
 input:-webkit-autofill,
