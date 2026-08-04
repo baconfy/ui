@@ -45,27 +45,33 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user();
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user,
             ],
-            ...($request->user() ? [
+            ...($user ? [
                 // `matchOn('id')` is what makes a partial reload able to *update* a
                 // row instead of appending a second copy of it. Without it the merge
                 // is a blind append: reloading page one after marking everything read
                 // would leave the original rows untouched and duplicate all twenty.
                 'notifications' => Inertia::scroll(fn () => NotificationResource::collection(
-                    $request->user()->notifications()->latest()->cursorPaginate(self::NOTIFICATION_LIMIT, ['*'], 'notifications')
+                    $user->notifications()->latest()->cursorPaginate(self::NOTIFICATION_LIMIT, ['*'], 'notifications')
                 ))->matchOn('data.id'),
-                'unreadCount' => $request->user()->unreadNotifications()->count(),
+                'unreadCount' => $user->unreadNotifications()->count(),
             ] : []),
+            // No null-safe access here, and that is deliberate: `??` evaluates with
+            // isset semantics, which suppress the "property on null" warning. A guest
+            // falls through to the defaults without a peep, and the null-safe operator
+            // would only be noise.
             'layout' => [
-                'variant' => $request->user()?->sidebar_variant ?? 'floating',
-                'collapsible' => $request->user()?->sidebar_collapsible ?? 'icon',
-                'side' => $request->user()?->sidebar_side ?? 'left',
+                'variant' => $user->sidebar_variant ?? 'floating',
+                'collapsible' => $user->sidebar_collapsible ?? 'icon',
+                'side' => $user->sidebar_side ?? 'left',
             ],
         ];
     }

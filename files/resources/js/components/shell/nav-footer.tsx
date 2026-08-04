@@ -41,7 +41,7 @@ export function NavFooter({ items }: NavFooterProps) {
                                 <AvatarFallback className="text-base font-black">{getInitials(auth.user.name)}</AvatarFallback>
                             </Avatar>
 
-                            <div className="grid min-w-0 flex-1 @max-[10rem]:hidden gap-0.5">
+                            <div className="grid min-w-0 flex-1 gap-0.5 @max-[10rem]:hidden">
                                 <span className="line-clamp-1 truncate text-sm leading-none font-bold">{auth.user.name}</span>
                                 <span className="line-clamp-1 truncate text-xs leading-none text-muted-foreground">{auth.user.email}</span>
                             </div>
@@ -67,7 +67,7 @@ export function NavFooter({ items }: NavFooterProps) {
 
                         <DropdownMenuSeparator className={separator} />
 
-                        <DropdownMenuItem render={<Link href="/settings/profile" />}>
+                        <DropdownMenuItem render={<Link href="/settings/profile" viewTransition />}>
                             <Settings />
                             Settings
                         </DropdownMenuItem>

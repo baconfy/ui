@@ -14,7 +14,9 @@ declare module '@inertiajs/core' {
             name: string;
             auth: Auth;
             sidebarOpen: boolean;
+            /** Shared with authenticated requests only — guest pages never carry it. */
             notifications?: NotificationPage;
+            /** Unread total from the server — not a count of what happens to be loaded. */
             unreadCount?: number;
             [key: string]: unknown;
         };

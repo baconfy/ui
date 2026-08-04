@@ -1,6 +1,8 @@
+import { Link } from '@inertiajs/react';
 import { createContext, use, type ComponentProps } from 'react';
 
 import { InlineMarkdown } from '@/components/ui/markdown';
+import markNotificationAsRead from '@/actions/App/Http/Controllers/Notifications/MarkNotificationAsReadController';
 import { relativeTime } from '@/lib/datetime';
 import { cn } from '@/lib/utils';
 import type { Notification, NotificationTone } from '@/types/shell';
@@ -30,10 +32,23 @@ function useNotification(): Notification {
  *
  * Vertical rhythm belongs to the list, not the row: no margin here.
  */
-export function NotificationRow({ notification, className, ...props }: { notification: Notification } & ComponentProps<'button'>) {
+export function NotificationRow({ notification, className, ...props }: { notification: Notification } & ComponentProps<typeof Link>) {
     return (
         <NotificationContext value={notification}>
-            <button type="button" className={cn('clickable group/row relative flex w-full items-start gap-3 rounded-lg px-3 py-2.5 text-left transition-colors', 'hover:bg-accent focus-visible:bg-accent focus-visible:outline-none', className)} {...props} />
+            {/* Reading a row marks it read — true of every type, so it lives here
+                rather than being reimplemented, or forgotten, by each one.
+
+                The Wayfinder action carries both the url and the method, so the
+                `method` prop is unnecessary. `only` keeps the response to the two
+                props that actually change. */}
+            <Link
+                href={markNotificationAsRead(notification.id)}
+                as="button"
+                only={['notifications', 'unreadCount']}
+                preserveScroll
+                className={cn('clickable group/row relative flex w-full items-start gap-3 rounded-lg px-3 py-2.5 text-left transition-colors', 'hover:bg-accent focus-visible:bg-accent focus-visible:outline-none', className)}
+                {...props}
+            />
         </NotificationContext>
     );
 }

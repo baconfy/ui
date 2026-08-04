@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 use App\Models\User;
 use Inertia\Testing\AssertableInertia;
 
@@ -14,6 +12,15 @@ test('the layout prop falls back to the application defaults when the user has n
 
     $this->actingAs($user)
         ->get(route('dashboard'))
+        ->assertInertia(fn (AssertableInertia $page) => $page
+            ->where('layout.variant', 'floating')
+            ->where('layout.collapsible', 'icon')
+            ->where('layout.side', 'left')
+        );
+});
+
+test('the layout prop falls back to the application defaults for a guest', function () {
+    $this->get(route('login'))
         ->assertInertia(fn (AssertableInertia $page) => $page
             ->where('layout.variant', 'floating')
             ->where('layout.collapsible', 'icon')
