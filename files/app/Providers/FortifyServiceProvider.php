@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\Providers;
 
 use App\Actions\Fortify\CreateNewUser;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\Http\Middleware;
 
 use App\Http\Resources\NotificationResource;
@@ -51,9 +53,13 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             ...($request->user() ? [
+                // `matchOn('id')` is what makes a partial reload able to *update* a
+                // row instead of appending a second copy of it. Without it the merge
+                // is a blind append: reloading page one after marking everything read
+                // would leave the original rows untouched and duplicate all twenty.
                 'notifications' => Inertia::scroll(fn () => NotificationResource::collection(
                     $request->user()->notifications()->latest()->cursorPaginate(self::NOTIFICATION_LIMIT, ['*'], 'notifications')
-                )),
+                ))->matchOn('data.id'),
                 'unreadCount' => $request->user()->unreadNotifications()->count(),
             ] : []),
             'layout' => [
