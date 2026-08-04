@@ -93,9 +93,6 @@
 :root {
     --radius: 0.625rem;
 
-    /* Old money: navy + camel on cream. Hues are fixed — navy 255, camel 65,
-       cream 88 — so every surface and every text tone is a lightness/chroma
-       move within the same three families. */
     --background: oklch(0.955 0.014 88);
     --foreground: oklch(0.275 0.02 88);
 
@@ -105,18 +102,9 @@
     --popover: oklch(0.985 0.008 88);
     --popover-foreground: oklch(0.275 0.02 88);
 
-    /* Body text is warm ink from the cream family, not navy — that keeps navy
-       exclusive to links and primary actions, which is the only way the two
-       read apart. Dark already separates them: cream text, camel links. */
-
-    /* Navy reads as text on cream, so `primary` needs no darkened twin here —
-       unlike the gold it replaces. In dark it becomes camel, the side of the
-       brand that contrasts there. */
     --primary: oklch(0.355 0.085 255);
     --primary-foreground: oklch(0.985 0.008 88);
 
-    /* Camel: a fill, never text at this lightness. `--camel-deep` is its
-       text-safe form, and both resolve to the same tone in dark. */
     --camel: oklch(0.74 0.085 65);
     --camel-foreground: oklch(0.275 0.02 88);
     --camel-deep: oklch(0.48 0.09 65);
@@ -186,7 +174,6 @@
     --popover: oklch(0.245 0.034 255);
     --popover-foreground: oklch(0.955 0.012 88);
 
-    /* Camel carries `primary` here: navy on navy would vanish. */
     --primary: oklch(0.79 0.09 65);
     --primary-foreground: oklch(0.19 0.03 255);
 
@@ -256,22 +243,10 @@
         @apply bg-background antialiased font-sans;
     }
 
-    /* No background here on purpose: `html` owns the page colour. A background
-       on `body` would paint over `body::before`, because a block-level
-       descendant's background paints after negative z-index children. */
     body {
         @apply text-foreground scroll-smooth scrollbar-thin scrollbar-gutter-stable;
     }
 
-    /**
-     * Film grain over the shell background. `z-index: -1` keeps it above the
-     * canvas colour but behind every element, so cards and panels stay clean —
-     * the grain only shows where the background itself shows.
-     *
-     * The texture is an inline `feTurbulence` desaturated to grey: no asset to
-     * ship, no network request, and it resolves at any density. Strength is a
-     * token because the two themes need different amounts.
-     */
     body::before {
         content: '';
         position: fixed;
