@@ -35,9 +35,9 @@ export function NavNotifications() {
             />
 
             <PopoverContent className="w-96 max-w-[calc(100vw-2rem)] rounded-(--panel-radius) border-0 bg-transparent p-0 ring-0" align="end" sideOffset={8}>
-                <Panel className="w-full [--panel-gap:--spacing(4)] [--panel-padding:--spacing(5)]">
-                    <header className="grid gap-2">
-                        <h2 className="text-lg leading-none font-bold text-primary">Notification Center</h2>
+                <Panel className="w-full [--panel-gap:--spacing(4)] [--panel-padding:--spacing(4)]">
+                    <header className="grid gap-3">
+                        <h2 className="font-heading text-lg leading-none font-bold text-primary">Notification Center</h2>
                         <p className="text-xs leading-none text-muted-foreground/75">Your hub for recent alerts and activity.</p>
                     </header>
 
@@ -56,10 +56,10 @@ export function NavNotifications() {
                         <EmptyState />
                     ) : (
                         <div ref={scrollArea} className="-mx-2 no-scrollbar max-h-96 min-h-56 overflow-y-auto overscroll-contain">
-                            <InfiniteScroll data="notifications" itemsElement={scrollArea} preserveUrl onlyNext loading={<p className="py-3 text-center text-xs text-muted-foreground">Loading…</p>}>
+                            <InfiniteScroll data="notifications" itemsElement={scrollArea} preserveUrl onlyNext className="grid gap-2" loading={<p className="py-3 text-center text-xs text-muted-foreground">Loading…</p>}>
                                 {groupByReadState(rows).map((group) => (
-                                    <section key={group.label} className="mb-2 grid gap-0.5">
-                                        <h3 className="sticky top-0 z-10 bg-card py-1.5 text-xs font-bold tracking-wide text-muted-foreground/50 uppercase">{group.label}</h3>
+                                    <section key={group.label} className="grid gap-0.5">
+                                        <h3 className="sticky top-0 z-10 bg-card pb-1.5 text-xs font-bold tracking-wide text-muted-foreground/50 uppercase">{group.label}</h3>
 
                                         {group.items.map((notification) => {
                                             const Row = resolveNotification(notification.data.type);
@@ -92,7 +92,7 @@ function EmptyState() {
             </span>
 
             <span className="grid gap-1">
-                <span className="text-sm font-semibold text-primary">Nothing here yet</span>
+                <span className="text-sm font-heading font-bold text-primary">Nothing here yet</span>
                 <span className="max-w-48 text-xs text-muted-foreground/50">We'll let you know the moment something happens.</span>
             </span>
         </div>

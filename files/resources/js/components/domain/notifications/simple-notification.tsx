@@ -18,11 +18,12 @@ export function SimpleNotification({ notification }: NotificationProps) {
             <NotificationBody>
                 <NotificationHeader>
                     <NotificationTitle>{notification.data.title}</NotificationTitle>
-                    <NotificationTime />
                     <NotificationMarker />
                 </NotificationHeader>
 
                 {notification.data.description && <NotificationDescription>{notification.data.description}</NotificationDescription>}
+
+                <NotificationTime />
             </NotificationBody>
         </NotificationRow>
     );

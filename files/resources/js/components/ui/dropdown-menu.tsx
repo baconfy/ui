@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Menu as MenuPrimitive } from '@base-ui/react/menu';
 
+import { Panel } from '@/components/ui/panel';
 import { cn } from '@/lib/utils';
 import { CheckIcon, ChevronRightIcon } from 'lucide-react';
 
@@ -16,7 +17,21 @@ function DropdownMenuTrigger({ ...props }: MenuPrimitive.Trigger.Props) {
   return <MenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />
 }
 
-function DropdownMenuContent({ align = "start", alignOffset = 0, side = "bottom", sideOffset = 4, className, ...props }: MenuPrimitive.Popup.Props & Pick<MenuPrimitive.Positioner.Props, "align" | "alignOffset" | "side" | "sideOffset">) {
+/**
+ * The popup carries only positioning and animation; the surface is a `Panel`,
+ * the same one the sidebar and the notification centre are built from.
+ *
+ * That is deliberate and it is why this diverges from upstream. Before, every
+ * caller had to neutralise the popup's own chrome — `border-0 bg-transparent
+ * p-0 ring-0` — and wrap its children in a Panel by hand. Four call sites
+ * repeated that incantation, and a fifth would only look right if its author
+ * knew to copy it. The API is unchanged: callers still write
+ * `<DropdownMenuContent>`, they just stop having to know a secret.
+ *
+ * `--panel-padding` still works from the outside, so a menu that wants a
+ * different inset sets it in `className` as before.
+ */
+function DropdownMenuContent({ align = "start", alignOffset = 0, side = "bottom", sideOffset = 4, className, children, ...props }: MenuPrimitive.Popup.Props & Pick<MenuPrimitive.Positioner.Props, "align" | "alignOffset" | "side" | "sideOffset">) {
   return (
     <MenuPrimitive.Portal>
       <MenuPrimitive.Positioner
@@ -28,9 +43,11 @@ function DropdownMenuContent({ align = "start", alignOffset = 0, side = "bottom"
       >
         <MenuPrimitive.Popup
           data-slot="dropdown-menu-content"
-          className={cn("z-50 max-h-(--available-height) w-(--anchor-width) min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-md bg-popover p-1 text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 outline-none data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:overflow-hidden data-closed:fade-out-0 data-closed:zoom-out-95", className )}
+          className={cn("z-50 max-h-(--available-height) w-(--anchor-width) min-w-32 origin-(--transform-origin) rounded-(--panel-radius) text-popover-foreground shadow-xl duration-100 outline-none [--panel-gap:0px] [--panel-padding:--spacing(2)] data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:overflow-hidden data-closed:fade-out-0 data-closed:zoom-out-95", className )}
           {...props}
-        />
+        >
+          <Panel className="w-full [&_[data-slot=panel-content]]:max-h-(--available-height) [&_[data-slot=panel-content]]:overflow-x-hidden [&_[data-slot=panel-content]]:overflow-y-auto">{children}</Panel>
+        </MenuPrimitive.Popup>
       </MenuPrimitive.Positioner>
     </MenuPrimitive.Portal>
   )

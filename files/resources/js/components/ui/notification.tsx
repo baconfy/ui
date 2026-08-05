@@ -1,10 +1,12 @@
 import { Link, router } from '@inertiajs/react';
-import { X } from 'lucide-react';
-import { createContext, use, type ComponentProps } from 'react';
+import { MoreVertical, Trash2 } from 'lucide-react';
+import { type ComponentProps, createContext, use } from 'react';
 
 import destroyNotification from '@/actions/App/Http/Controllers/Notifications/DestroyNotificationController';
 import openNotification from '@/actions/App/Http/Controllers/Notifications/OpenNotificationController';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { InlineMarkdown } from '@/components/ui/markdown';
+import { Panel } from '@/components/ui/panel';
 import { relativeTime } from '@/lib/datetime';
 import { cn } from '@/lib/utils';
 import type { Notification, NotificationTone } from '@/types/shell';
@@ -42,7 +44,7 @@ function useNotification(): Notification {
 export function NotificationRow({ notification, className, ...props }: { notification: Notification } & ComponentProps<'div'>) {
     return (
         <NotificationContext value={notification}>
-            <div className={cn('clickable group/row relative flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors', 'hover:bg-accent focus-within:bg-accent', className)} {...props} />
+            <div className={cn('clickable group/row relative flex items-start gap-3 rounded-lg mx-0.5 px-3 py-2.5 transition-colors', 'hover:bg-accent focus-within:bg-accent', className)} {...props} />
         </NotificationContext>
     );
 }
@@ -83,7 +85,7 @@ export function NotificationHeader({ className, ...props }: ComponentProps<'div'
 }
 
 /**
- * The title, and the row's link.
+ * The title and the row's link.
  *
  * `after:inset-0` stretches the anchor's hit area over the whole row, so the
  * link keeps real text for its accessible name while the reader can click
@@ -97,7 +99,7 @@ export function NotificationTitle({ children, className, ...props }: ComponentPr
     const navigates = Boolean(notification.data.url);
 
     return (
-        <Link href={openNotification(notification.id)} only={navigates ? undefined : ['notifications', 'unreadCount']} preserveScroll={!navigates} className={cn('block min-w-0 flex-1 truncate text-sm after:absolute after:inset-0 after:rounded-lg', unread ? 'font-semibold text-foreground' : 'font-medium text-muted-foreground', className)} {...props}>
+        <Link href={openNotification(notification.id)} only={navigates ? undefined : ['notifications', 'unreadCount']} preserveScroll={!navigates} className={cn('block min-w-0 flex-1 truncate text-sm font-bold tracking-tight after:absolute after:inset-0 after:rounded-lg', unread ? 'text-foreground' : 'text-muted-foreground', className)} {...props}>
             <InlineMarkdown>{children}</InlineMarkdown>
         </Link>
     );
@@ -112,12 +114,17 @@ export function NotificationDescription({ children, className, ...props }: Compo
     );
 }
 
-/** Relative time, sized as a label rather than as content. */
+/**
+ * Relative time, on a line of its own beneath the text rather than beside the
+ * title. Sitting on the first line it competed with the title for the same
+ * horizontal space and truncated it; underneath, it reads as a timestamp and
+ * the title gets the full width.
+ */
 export function NotificationTime({ className, ...props }: ComponentProps<'span'>) {
     const notification = useNotification();
 
     return (
-        <span className={cn('shrink-0 text-[0.6875rem] leading-none text-muted-foreground/70', className)} {...props}>
+        <span className={cn('text-[0.6875rem] leading-4 text-muted-foreground/70', className)} {...props}>
             {relativeTime(notification.created_at)}
         </span>
     );
@@ -148,9 +155,22 @@ export function NotificationMarker({ className, ...props }: ComponentProps<'span
 
     return (
         <span className={cn('flex size-4 shrink-0 items-center justify-center', className)} {...props}>
-            <button type="button" onClick={() => router.visit(destroyNotification(notification.id), { only: ['unreadCount'], reset: ['notifications'], preserveScroll: true })} aria-label="Delete notification" className="relative rounded-xs text-muted-foreground transition-colors hover:text-destructive">
-                <X className="size-3.5" />
-            </button>
+            <DropdownMenu>
+                <DropdownMenuTrigger
+                    render={
+                        <button type="button" aria-label="Notification options" className="relative rounded-xs text-muted-foreground transition-colors hover:text-foreground">
+                            <MoreVertical className="size-3.5" />
+                        </button>
+                    }
+                />
+
+                <DropdownMenuContent className="min-w-60" align="end">
+                        <DropdownMenuItem variant="destructive" className="whitespace-nowrap" onClick={() => router.visit(destroyNotification(notification.id), { only: ['unreadCount'], reset: ['notifications'], preserveScroll: true })}>
+                            <Trash2 />
+                            Delete notification
+                        </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
         </span>
     );
 }

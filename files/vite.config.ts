@@ -11,7 +11,10 @@ export default defineConfig({
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.tsx'],
             refresh: true,
-            fonts: [bunny('Nunito', { weights: [200, 400, 500, 600, 700, 800, 900] }), bunny('Geist', { weights: [900] })],
+            fonts: [
+                bunny('Nunito', { weights: [200, 400, 500, 600, 700, 800, 900] }),
+                bunny('Oswald', { weights: [200, 300, 400, 500, 600, 700] }),
+            ],
         }),
         inertia(),
         react({

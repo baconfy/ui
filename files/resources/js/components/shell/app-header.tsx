@@ -19,11 +19,20 @@ interface AppHeaderProps {
     onToggle: () => void;
 }
 
-const rescueToggle = cn('md:hidden', 'md:group-data-[collapsible=offcanvas]/shell:group-data-[state=collapsed]/shell:flex');
+// On a phone the toggle moves to the far end of the row. Left of the breadcrumb
+// it eats the first 40px, and the trail then starts 44px further in than the
+// page heading below it — two things that should share an edge and visibly do
+// not. `order` moves it visually without touching DOM order, so the toggle is
+// still the first thing a keyboard reaches.
+const rescueToggle = cn('md:hidden max-md:order-last', 'md:group-data-[collapsible=offcanvas]/shell:group-data-[state=collapsed]/shell:flex');
 
 export function AppHeader({ breadcrumbs = [], actions, onToggle }: AppHeaderProps) {
+    // `h-12` is the height of the bell inside it, so the row carries no dead
+    // space above the breadcrumb. It does mean the breadcrumb no longer shares a
+    // line with the sidebar's logo: the logo's centre is fixed at 56 by the
+    // panel's own padding, and matching it would put 28px of nothing up here.
     return (
-        <header className="flex h-14 shrink-0 items-center gap-2 px-2">
+        <header className="flex h-12 shrink-0 items-center gap-2 px-2 md:px-6">
             <NavAction
                 label="Expand navigation"
                 side="bottom"
@@ -59,6 +68,8 @@ export function AppHeader({ breadcrumbs = [], actions, onToggle }: AppHeaderProp
 function BreadcrumbMenu({ breadcrumbs }: { breadcrumbs: BreadcrumbItemType[] }) {
     const current = breadcrumbs.at(-1);
 
+    // Everything above here, which is what the menu is for. The page you are on
+    // is the trigger, so listing it again would only be a dead row.
     const ancestors = breadcrumbs.slice(0, -1);
 
     return (

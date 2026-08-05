@@ -31,7 +31,7 @@ export function NavFooter({ items }: NavFooterProps) {
     const themeLabel = dark ? 'Light theme' : 'Dark theme';
 
     return (
-        <div className="shrink-0 pt-4">
+        <div className="shrink-0">
             <DropdownMenu>
                 <DropdownMenuTrigger
                     render={

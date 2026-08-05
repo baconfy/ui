@@ -11,7 +11,7 @@ export function NavMain({ groups, collapsed }: NavMainProps) {
     const { isCurrentUrl } = useCurrentUrl();
 
     return (
-        <nav className="no-scrollbar flex min-h-0 flex-1 flex-col gap-8 overflow-y-auto pt-4 md:pt-8">
+        <nav className="no-scrollbar flex min-h-0 flex-1 flex-col gap-8 overflow-y-auto">
             {groups.map((group, index) => (
                 <div key={group.label ?? index} className="flex flex-col gap-2">
                     {group.label && <span className="px-3.5 text-xs font-medium tracking-widest text-muted-foreground uppercase @max-[10rem]:hidden">{group.label}</span>}
