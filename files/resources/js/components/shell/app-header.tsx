@@ -8,7 +8,6 @@ import { NavNotifications } from '@/components/shell/nav-notifications';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Panel } from '@/components/ui/panel';
 import { cn } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem as BreadcrumbItemType } from '@/types/shell';
@@ -19,18 +18,9 @@ interface AppHeaderProps {
     onToggle: () => void;
 }
 
-// On a phone the toggle moves to the far end of the row. Left of the breadcrumb
-// it eats the first 40px, and the trail then starts 44px further in than the
-// page heading below it — two things that should share an edge and visibly do
-// not. `order` moves it visually without touching DOM order, so the toggle is
-// still the first thing a keyboard reaches.
-const rescueToggle = cn('md:hidden max-md:order-last', 'md:group-data-[collapsible=offcanvas]/shell:group-data-[state=collapsed]/shell:flex');
+const rescueToggle = cn('max-md:order-last md:hidden', 'md:group-data-[collapsible=offcanvas]/shell:group-data-[state=collapsed]/shell:flex');
 
 export function AppHeader({ breadcrumbs = [], actions, onToggle }: AppHeaderProps) {
-    // `h-12` is the height of the bell inside it, so the row carries no dead
-    // space above the breadcrumb. It does mean the breadcrumb no longer shares a
-    // line with the sidebar's logo: the logo's centre is fixed at 56 by the
-    // panel's own padding, and matching it would put 28px of nothing up here.
     return (
         <header className="flex h-12 shrink-0 items-center gap-2 px-2 md:px-6">
             <NavAction
@@ -68,8 +58,6 @@ export function AppHeader({ breadcrumbs = [], actions, onToggle }: AppHeaderProp
 function BreadcrumbMenu({ breadcrumbs }: { breadcrumbs: BreadcrumbItemType[] }) {
     const current = breadcrumbs.at(-1);
 
-    // Everything above here, which is what the menu is for. The page you are on
-    // is the trigger, so listing it again would only be a dead row.
     const ancestors = breadcrumbs.slice(0, -1);
 
     return (
@@ -84,25 +72,23 @@ function BreadcrumbMenu({ breadcrumbs }: { breadcrumbs: BreadcrumbItemType[] }) 
                 }
             />
 
-            <DropdownMenuContent className="min-w-56 rounded-(--panel-radius) border-0 bg-transparent p-0 shadow-xl ring-0" align="start">
-                <Panel className="w-full [--panel-gap:0px] [--panel-padding:--spacing(2)]">
-                    <DropdownMenuItem render={<Link href={dashboard()} />}>
-                        <House />
-                        Dashboard
-                    </DropdownMenuItem>
+            <DropdownMenuContent className="min-w-56" align="start">
+                <DropdownMenuItem render={<Link href={dashboard()} />}>
+                    <House />
+                    Dashboard
+                </DropdownMenuItem>
 
-                    {ancestors.map((item, index) =>
-                        item.href ? (
-                            <DropdownMenuItem key={index} render={<Link href={item.href} />}>
-                                {item.title}
-                            </DropdownMenuItem>
-                        ) : (
-                            <DropdownMenuItem key={index} disabled>
-                                {item.title}
-                            </DropdownMenuItem>
-                        ),
-                    )}
-                </Panel>
+                {ancestors.map((item, index) =>
+                    item.href ? (
+                        <DropdownMenuItem key={index} render={<Link href={item.href} />}>
+                            {item.title}
+                        </DropdownMenuItem>
+                    ) : (
+                        <DropdownMenuItem key={index} disabled>
+                            {item.title}
+                        </DropdownMenuItem>
+                    ),
+                )}
             </DropdownMenuContent>
         </DropdownMenu>
     );

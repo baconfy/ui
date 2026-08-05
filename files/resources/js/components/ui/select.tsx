@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Select as SelectPrimitive } from '@base-ui/react/select';
 
+import { Panel } from '@/components/ui/panel';
 import { cn } from '@/lib/utils';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 
@@ -56,6 +57,12 @@ function SelectTrigger({
   )
 }
 
+/**
+ * Surface provided by `Panel`, matching `DropdownMenuContent` — see the note
+ * there. A floating surface that paints its own background is one the caller
+ * has to undo by hand, and every caller undoing it the same way means the
+ * default was in the wrong place.
+ */
 function SelectContent({
   className,
   children,
@@ -83,12 +90,14 @@ function SelectContent({
         <SelectPrimitive.Popup
           data-slot="select-content"
           data-align-trigger={alignItemWithTrigger}
-          className={cn("relative isolate z-50 max-h-(--available-height) w-(--anchor-width) min-w-36 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-md bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[align-trigger=true]:animate-none data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95", className )}
+          className={cn("relative isolate z-50 max-h-(--available-height) w-(--anchor-width) min-w-36 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-(--panel-radius) text-popover-foreground duration-100 data-[align-trigger=true]:animate-none data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95", className )}
           {...props}
         >
-          <SelectScrollUpButton />
-          <SelectPrimitive.List>{children}</SelectPrimitive.List>
-          <SelectScrollDownButton />
+          <Panel className="w-full [&_[data-slot=panel-content]]:overflow-x-hidden [&_[data-slot=panel-content]]:overflow-y-auto">
+            <SelectScrollUpButton />
+            <SelectPrimitive.List>{children}</SelectPrimitive.List>
+            <SelectScrollDownButton />
+          </Panel>
         </SelectPrimitive.Popup>
       </SelectPrimitive.Positioner>
     </SelectPrimitive.Portal>
@@ -157,7 +166,7 @@ function SelectScrollUpButton({
     <SelectPrimitive.ScrollUpArrow
       data-slot="select-scroll-up-button"
       className={cn(
-        "clickable top-0 z-10 flex w-full items-center justify-center bg-popover py-1 [&_svg:not([class*='size-'])]:size-4.5",
+        "clickable top-0 z-10 flex w-full items-center justify-center bg-card py-1 [&_svg:not([class*='size-'])]:size-4.5",
         className
       )}
       {...props}
@@ -176,7 +185,7 @@ function SelectScrollDownButton({
     <SelectPrimitive.ScrollDownArrow
       data-slot="select-scroll-down-button"
       className={cn(
-        "clickable bottom-0 z-10 flex w-full items-center justify-center bg-popover py-1 [&_svg:not([class*='size-'])]:size-4.5",
+        "clickable bottom-0 z-10 flex w-full items-center justify-center bg-card py-1 [&_svg:not([class*='size-'])]:size-4.5",
         className
       )}
       {...props}

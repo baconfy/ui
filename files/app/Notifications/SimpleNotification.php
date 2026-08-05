@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\Notifications;
+namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;

@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
  */
 export function Panel({ className, children, ...props }: ComponentProps<'div'>) {
     return (
-        <div data-slot="panel" className={cn('flex min-w-0 rounded-(--panel-radius) p-(--panel-frame-padding) inset-ring-(length:--panel-border) inset-ring-foreground/5 backdrop-blur-xl backdrop-brightness-95 dark:backdrop-brightness-105', className)} {...props}>
+        <div data-slot="panel" className={cn('flex min-w-0 rounded-(--panel-radius) p-(--panel-frame-padding) inset-ring-(length:--panel-border) inset-ring-foreground/5 backdrop-blur-sm backdrop-brightness-95 dark:backdrop-brightness-105', className)} {...props}>
             <div data-slot="panel-content" className="flex min-w-0 grow flex-col gap-(--panel-gap) overflow-hidden rounded-(--panel-card-radius) bg-card p-(--panel-padding) inset-ring-(length:--panel-border) inset-ring-foreground/10 shadow-xs">{children}</div>
         </div>
     );

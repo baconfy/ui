@@ -15,7 +15,10 @@ export interface Notification {
     id: string;
     data: {
         type: string;
+        /** The short label on the first line, beside the time. Keep it to a few words. */
         title: string;
+        /** The detail below it. Optional — a title that says everything needs no second line. */
+        description?: string;
         icon?: string;
         tone?: NotificationTone;
         url?: string;

@@ -39,6 +39,10 @@ class OpenNotificationController
             return back();
         }
 
+        // `Inertia::location()` and not `redirect()`: an Inertia visit follows a
+        // 302 over XHR, and a host that is not ours answers with HTML this client
+        // cannot read. So a relative path stays a client-side visit, and anything
+        // absolute is handed back to the browser as a full page load.
         return str_starts_with($url, '/') ? redirect($url) : Inertia::location($url);
     }
 }

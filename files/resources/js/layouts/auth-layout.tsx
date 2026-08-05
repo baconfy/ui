@@ -10,7 +10,7 @@ export default function AuthLayout({ title = '', description = '', children }: {
             <div className="grid min-h-svh lg:grid-cols-2">
                 <div className="flex items-center justify-center p-6 md:p-10">
                     <div className="flex w-full max-w-sm flex-col gap-12">
-                        <Brand className="size-24" />
+                        <Brand className="text-4xl text-primary" />
 
                         <div className="flex flex-col justify-center gap-3">
                             <h1 className="text-3xl leading-none font-bold tracking-tight">{title}</h1>

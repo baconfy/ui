@@ -16,8 +16,8 @@ configureEcho({
     enabledTransports: ['ws', 'wss'],
 });
 
-const appName = import.meta.env.VITE_APP_NAME || 'Baconfy';
-const defaultTitle = 'Baconfy';
+const appName = import.meta.env.VITE_APP_NAME || 'Starter Kit';
+const defaultTitle = 'Starter Kit';
 
 void createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : defaultTitle),

@@ -6,7 +6,6 @@ import destroyNotification from '@/actions/App/Http/Controllers/Notifications/De
 import openNotification from '@/actions/App/Http/Controllers/Notifications/OpenNotificationController';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { InlineMarkdown } from '@/components/ui/markdown';
-import { Panel } from '@/components/ui/panel';
 import { relativeTime } from '@/lib/datetime';
 import { cn } from '@/lib/utils';
 import type { Notification, NotificationTone } from '@/types/shell';
